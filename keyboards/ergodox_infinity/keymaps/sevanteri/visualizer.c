@@ -26,7 +26,7 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     /*     saturation = 60; */
     /*     brightness = 255; */
     /* } */
-    if (state->status.layer & 0x2) {
+    if (state->status.layer & 0x8000) {
         state->target_lcd_color = LCD_COLOR(0, saturation, 0xFF);
         state->layer_text = "Func";
     }

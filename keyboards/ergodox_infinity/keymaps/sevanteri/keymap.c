@@ -9,8 +9,8 @@
 
 // Layer names
 #define BASE 0 // default layer
-#define FUNCL 1 // function layer
 #define NUMP 2 // numpad layer
+#define FUNCL 15 // function layer
 
 // keys
 #define ESCCTRL MT(MOD_LCTL, KC_ESC) // hold esc for ctrl
