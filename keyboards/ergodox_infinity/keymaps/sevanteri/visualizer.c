@@ -26,13 +26,13 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     /*     saturation = 60; */
     /*     brightness = 255; */
     /* } */
-    if (state->status.layer & 0x4) {
-        state->target_lcd_color = LCD_COLOR(90, saturation, 0xFF);
-        state->layer_text = "Numpad";
-    }
-    else if (state->status.layer & 0x2) {
+    if (state->status.layer & 0x2) {
         state->target_lcd_color = LCD_COLOR(0, saturation, 0xFF);
         state->layer_text = "Func";
+    }
+    else if (state->status.layer & 0x4) {
+        state->target_lcd_color = LCD_COLOR(90, saturation, 0xFF);
+        state->layer_text = "Numpad";
     }
     else {
         state->target_lcd_color = LCD_COLOR(84, saturation, brightness);
