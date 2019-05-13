@@ -18,6 +18,8 @@ NKRO_ENABLE      = yes # USB Nkey Rollover - if this doesn't work, see here: htt
 UNICODE_ENABLE   = yes # Unicode
 SWAP_HANDS_ENABLE= yes # Allow swapping hands of keyboard
 
+NO_USB_STARTUP_CHECK = yes
+
 CUSTOM_MATRIX = yes # Custom matrix file
 SERIAL_LINK_ENABLE = yes
 VISUALIZER_ENABLE = yes
