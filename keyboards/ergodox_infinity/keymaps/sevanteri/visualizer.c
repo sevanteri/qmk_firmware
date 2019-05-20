@@ -34,6 +34,10 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
         state->target_lcd_color = LCD_COLOR(90, saturation, 0xFF);
         state->layer_text = "Numpad";
     }
+    else if (state->status.layer & 0x8) {
+        state->target_lcd_color = LCD_COLOR(0, saturation, 0x60);
+        state->layer_text = "Games";
+    }
     else {
         state->target_lcd_color = LCD_COLOR(84, saturation, brightness);
         state->layer_text = "FRLUPLUP";
