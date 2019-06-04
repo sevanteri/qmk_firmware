@@ -16,6 +16,7 @@
 // keys
 #define ESCCTRL MT(MOD_LCTL, KC_ESC) // hold esc for ctrl
 #define SPCLGUI MT(MOD_LGUI, KC_SPC) // hold space for super
+#define SFT_ENT MT(MOD_LSFT, KC_ENT) // hold enter for shift
 #define CTRLTAB LCTL(KC_TAB)
 #define CSFTTAB LCTL(LSFT(KC_TAB))
 
@@ -44,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        | HOME | END  |       | PgUp |RCTRL |
  *                                 ,------+------+------|       |------+--------+------.
- *                                 |      |  SPC |FUNCL |       | PgDn |        |      |
+ *                                 |      |  SPC |FUNCL |       | PgDn |  Shift |      |
  *                                 | LALT | LGUI |------|       |------|  Enter | Space|
  *                                 |      |      | LCTRL|       |FUNCL |        | LGUI |
  *                                 `--------------------'       `----------------------'
@@ -72,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     KC_PGUP,   KC_RCTRL,
     KC_PGDN,
-    MO(FUNCL), KC_ENT, SPCLGUI
+    MO(FUNCL), SFT_ENT, SPCLGUI
 
 ),
 
