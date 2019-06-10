@@ -14,10 +14,10 @@
 #define FUNCL 15 // function layer
 
 // keys
-#define ESCCTRL MT(MOD_LCTL, KC_ESC) // hold esc for ctrl
-#define ENTLGUI MT(MOD_LGUI, KC_ENT) // hold enter for super
-#define SPCLSFT MT(MOD_LSFT, KC_SPC) // hold space for shift
-#define SPCLALT MT(MOD_LALT, KC_SPC) // hold space for alt (left hand)
+#define ESCCTRL LCTL_T(KC_ESC) // hold esc for ctrl
+#define ENTLGUI LGUI_T(KC_ENT) // hold enter for super
+#define SPCRSFT RSFT_T(KC_SPC) // hold space for shift
+#define SPCLALT LALT_T(KC_SPC) // hold space for alt (left hand)
 #define CTRLTAB LCTL(KC_TAB)
 #define CSFTTAB LCTL(LSFT(KC_TAB))
 
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     KC_PGUP,   KC_RCTRL,
     KC_PGDN,
-    MO(FUNCL), ENTLGUI, SPCLSFT
+    MO(FUNCL), ENTLGUI, SPCRSFT
 
 ),
 
