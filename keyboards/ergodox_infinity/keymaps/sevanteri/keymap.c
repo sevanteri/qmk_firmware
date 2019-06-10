@@ -298,3 +298,14 @@ void matrix_scan_user(void) {
             break;
     }
 };
+
+// custom tapping terms for keys
+uint16_t get_tapping_term(uint16_t keycode) {
+    switch (keycode) {
+        case SPCRSFT:
+        case ENTLGUI:
+            return TAPPING_TERM + 350;
+        default:
+            return TAPPING_TERM;
+    }
+}

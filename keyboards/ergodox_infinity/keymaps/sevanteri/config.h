@@ -8,6 +8,7 @@
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif
+#define TAPPING_TERM_PER_KEY
 #define TAPPING_TERM 250
 #define PERMISSIVE_HOLD
 #define TAPPING_FORCE_HOLD
