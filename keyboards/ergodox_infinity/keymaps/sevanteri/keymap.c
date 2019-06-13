@@ -3,6 +3,7 @@
 #include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
+#include "action.h"
 #include "version.h"
 #include "keymap_nordic.h"
 #include "keymap_german.h"
@@ -181,17 +182,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+void ignore_mod_tap_interrupt(keyrecord_t *record) {
+    // copy paste code from tmk_core/common/action.c:197
+    keyevent_t event = record->event;
+    action_t action = store_or_get_action(record->event.pressed, record->event.key);
+    uint8_t tap_count = record->tap.count;
+
+    switch (action.kind.id) {
+        case ACT_RMODS_TAP:
+        case ACT_LMODS_TAP:
+            {
+                uint8_t mods = (action.kind.id == ACT_LMODS_TAP) ?
+                                action.key.mods :
+                                action.key.mods<<4;
+                if (event.pressed) {
+                    if (tap_count > 0) {
+                        {
+                            dprint("MODS_TAP: Tap: register_code\n");
+                            register_code(action.key.code);
+                        }
+                    } else {
+                        dprint("MODS_TAP: No tap: add_mods\n");
+                        register_mods(mods);
+                    }
+                } else {
+                    if (tap_count > 0) {
+                        dprint("MODS_TAP: Tap: unregister_code\n");
+                        unregister_code(action.key.code);
+                    } else {
+                        dprint("MODS_TAP: No tap: add_mods\n");
+                        unregister_mods(mods);
+                    }
+                }
+            }
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    // dynamically generate these.
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
-  }
-  return true;
+    switch (keycode) {
+        // dynamically generate these.
+        case VRSN:
+            if (record->event.pressed) {
+                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+            }
+            return false;
+            break;
+        case SPCRSFT:
+        case ENTLGUI:
+            // ignore MT interrupt for some of my MT keys
+            ignore_mod_tap_interrupt(record);
+            return false; // skip further processing of this key
+            break;
+    }
+    return true;
 }
 
 // Runs just one time when the keyboard initializes.
