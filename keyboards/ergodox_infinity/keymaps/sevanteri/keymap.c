@@ -14,11 +14,14 @@
 #define GAME 3 // gaming layer
 #define FUNCL 15 // function layer
 
-// keys
-#define ESCCTRL LCTL_T(KC_ESC) // hold esc for ctrl
-#define ENTLGUI LGUI_T(KC_ENT) // hold enter for super
-#define SPCRSFT RSFT_T(KC_SPC) // hold space for shift
-#define SPCLALT LALT_T(KC_SPC) // hold space for alt (left hand)
+// mod taps
+#define CTRLESC LCTL_T(KC_ESC) // hold esc for ctrl
+#define RGUIENT RGUI_T(KC_ENT) // hold enter for super (right hand)
+#define LGUIBSP LGUI_T(KC_BSPC) // hold backspace for super (left hand)
+#define RSFTSPC RSFT_T(KC_SPC) // hold space for shift
+#define LALTSPC LALT_T(KC_SPC) // hold space for alt (left hand)
+
+// other keys
 #define CTRLTAB LCTL(KC_TAB)
 #define CSFTTAB LCTL(LSFT(KC_TAB))
 
@@ -45,8 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        | HOME | END  |       | PgUp |RCTRL |
  *                                 ,------+------+------|       |------+--------+------.
- *                                 | Space|  SPC |FUNCL |       | PgDn |  LGUI  | Shift|
- *                                 | LALT | LGUI |------|       |------|  Enter | Space|
+ *                                 | LATL | LGUI |FUNCL |       | PgDn |  RGUI  | Shift|
+ *                                 | Space| BSPC |------|       |------|  Enter | Space|
  *                                 |      |      | LCTRL|       |FUNCL |        |      |
  *                                 `--------------------'       `----------------------'
  */
@@ -56,13 +59,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     KC_NUBS,  KC_1,   KC_2,   KC_3,    KC_4,    KC_5,    TG(NUMP),  /*****/ TG(NUMP),  KC_6,    KC_7,   KC_8,     KC_9,   KC_0,    KC_MINS,
     KC_TAB,   KC_Q,   KC_W,   KC_E,    KC_R,    KC_T,    KC_RBRC,   /*****/ KC_LBRC,   KC_Y,    KC_U,   KC_I,     KC_O,   KC_P,    KC_NUHS,
-    ESCCTRL,  KC_A,   KC_S,   KC_D,    KC_F,    KC_G,    /**/       /*****/ /**/       KC_H,    KC_J,   KC_K,     KC_L,   KC_SCLN, KC_QUOT,
+    CTRLESC,  KC_A,   KC_S,   KC_D,    KC_F,    KC_G,    /**/       /*****/ /**/       KC_H,    KC_J,   KC_K,     KC_L,   KC_SCLN, KC_QUOT,
     KC_LSFT,  KC_Z,   KC_X,   KC_C,    KC_V,    KC_B,    KC_DELT,   /*****/ KC_BSPC,   KC_N,    KC_M,   KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
     KC_LCTRL, KC_EQL, KC_GRV, KC_BTN2, KC_BTN1, /**/     /**/       /*****/ KC_RALT,   KC_PSCR, KC_INS, KC_RCTRL, KC_RGUI,
 
     /**/      /**/    /**/    /**/     /**/     KC_HOME, KC_END,    /*****/ KC_PGUP,   KC_RCTRL,
     /**/      /**/    /**/    /**/     /**/     /**/     MO(FUNCL), /*****/ KC_PGDN,
-    /**/      /**/    /**/    /**/     SPCLALT, KC_LGUI, KC_LCTRL,  /*****/ MO(FUNCL), ENTLGUI, SPCRSFT
+    /**/      /**/    /**/    /**/     LALTSPC, LGUIBSP, KC_LCTRL,  /*****/ MO(FUNCL), RGUIENT, RSFTSPC
 
 ),
 
@@ -227,8 +230,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case SPCRSFT:
-        case ENTLGUI:
+        case RSFTSPC:
+        case RGUIENT:
             // ignore MT interrupt for some of my MT keys
             ignore_mod_tap_interrupt(record);
             return false; // skip further processing of this key
@@ -266,8 +269,8 @@ void matrix_scan_user(void) {
 // custom tapping terms for keys
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
-        case SPCRSFT:
-        case ENTLGUI:
+        case RSFTSPC:
+        case RGUIENT:
             return TAPPING_TERM + 350;
         default:
             return TAPPING_TERM;
