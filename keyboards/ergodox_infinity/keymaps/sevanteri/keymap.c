@@ -185,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void ignore_mod_tap_interrupt(keyrecord_t *record) {
+bool ignore_mod_tap_interrupt(keyrecord_t *record) {
     // copy paste code from tmk_core/common/action.c:197
     keyevent_t event = record->event;
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
@@ -217,8 +217,10 @@ void ignore_mod_tap_interrupt(keyrecord_t *record) {
                         unregister_mods(mods);
                     }
                 }
+                return false;
             }
     }
+    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -233,8 +235,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RSFTSPC:
         case RGUIENT:
             // ignore MT interrupt for some of my MT keys
-            ignore_mod_tap_interrupt(record);
-            return false; // skip further processing of this key
+            return ignore_mod_tap_interrupt(record);
             break;
     }
     return true;
