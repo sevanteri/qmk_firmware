@@ -26,15 +26,19 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     /*     saturation = 60; */
     /*     brightness = 255; */
     /* } */
-    if (state->status.layer & 0x8000) {
+    if (state->status.layer & 1<<15) {
         state->target_lcd_color = LCD_COLOR(0, saturation, 0xFF);
         state->layer_text = "Func";
     }
-    else if (state->status.layer & 0x4) {
+    else if (state->status.layer & 1<<2) {
         state->target_lcd_color = LCD_COLOR(90, saturation, 0xFF);
         state->layer_text = "Numpad";
     }
-    else if (state->status.layer & 0x8) {
+    else if (state->status.layer & 1<<3) {
+        state->target_lcd_color = LCD_COLOR(0, saturation, 0x60);
+        state->layer_text = "Sumbols";
+    }
+    else if (state->status.layer & 1<<4) {
         state->target_lcd_color = LCD_COLOR(0, saturation, 0x60);
         state->layer_text = "Games";
     }
