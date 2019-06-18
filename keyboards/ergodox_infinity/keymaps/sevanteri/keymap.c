@@ -234,7 +234,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool ignore_mod_tap_interrupt(keyrecord_t *record) {
+bool ignore_mod_tap_interrupt(keyrecord_t *record) { // {{{
     // copy paste code from tmk_core/common/action.c:197
     keyevent_t event = record->event;
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
@@ -270,9 +270,9 @@ bool ignore_mod_tap_interrupt(keyrecord_t *record) {
             }
     }
     return true;
-}
+} // }}}
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
     switch (keycode) {
         // dynamically generate these.
         case VRSN:
@@ -288,35 +288,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
-}
+} // }}}
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-
-    uint8_t layer = biton32(layer_state);
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    switch (layer) {
-        case FUNCL:
-            ergodox_right_led_1_on();
-            break;
-        case NUMP:
-            ergodox_right_led_2_on();
-            break;
-        default:
-            // none
-            break;
-    }
-};
-
-// custom tapping terms for keys
+// custom tapping terms for keys {{{
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case RSFTSPC:
@@ -326,3 +300,4 @@ uint16_t get_tapping_term(uint16_t keycode) {
             return TAPPING_TERM;
     }
 }
+// }}}
