@@ -12,17 +12,19 @@
 // Layer names
 #define BASE 0 // default layer
 #define NUMP 2 // numpad layer
-#define GAME 3 // gaming layer
+#define SYMB 3 // number and symbol layer
+#define GAME 4 // gaming layer
 #define FUNCL 15 // function layer
 
 // mod taps
 #define CTRLESC LCTL_T(KC_ESC) // hold esc for ctrl
-#define RGUIENT RGUI_T(KC_ENT) // hold enter for super (right hand)
 #define LGUIBSP LGUI_T(KC_BSPC) // hold backspace for super (left hand)
 #define RSFTSPC RSFT_T(KC_SPC) // hold space for shift
 #define LALTSPC LALT_T(KC_SPC) // hold space for alt (left hand)
 
 #define LSFT_LT LSFT_T(KC_NUBS) // left shift is ISO/ on tap
+
+#define SYMBENT LT(SYMB, KC_ENT) // hold enter for symbol layer (right hand)
 
 // other keys
 #define CTRLTAB LCTL(KC_TAB)
@@ -51,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        | HOME | END  |       | PgUp |RCTRL |
  *                                 ,------+------+------|       |------+--------+------.
- *                                 | LATL | LGUI |FUNCL |       | PgDn |  RGUI  | Shift|
+ *                                 | LATL | LGUI |FUNCL |       | PgDn |  SYMB  | Shift|
  *                                 | Space| BSPC |------|       |------|  Enter | Space|
  *                                 |      |      | LCTRL|       |FUNCL |        |      |
  *                                 `--------------------'       `----------------------'
@@ -68,12 +70,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /**/      /**/    /**/    /**/     /**/     KC_HOME, KC_END,    /*****/ KC_PGUP,   KC_RCTRL,
     /**/      /**/    /**/    /**/     /**/     /**/     MO(FUNCL), /*****/ KC_PGDN,
-    /**/      /**/    /**/    /**/     LALTSPC, LGUIBSP, KC_LCTRL,  /*****/ MO(FUNCL), RGUIENT, RSFTSPC
+    /**/      /**/    /**/    /**/     LALTSPC, LGUIBSP, KC_LCTRL,  /*****/ MO(FUNCL), SYMBENT, RSFTSPC
 
 ),
 // }}}
 
-/* Keymap 1: Basic layer with functions {{{
+/* Keymap 1: Function layer {{{
  *
  *
  *
@@ -146,6 +148,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /**/     /**/     /**/     /**/     /**/     _______, _______, /*****/ _______, _______,
     /**/     /**/     /**/     /**/     /**/     /**/     _______, /*****/ _______,
     /**/     /**/     /**/     /**/     _______, _______, _______, /*****/ _______, KC_ENT,  KC_0
+
+),
+// }}}
+
+/* Number and symbol layer {{{
+ *
+ *
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |  !   |  "   |  #   |  ¤   |  %   |      |           |      |  &   |  /   |  (   |  )   |  =   |   ?    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |  1   |  2   |  3   |  4   |  5   |------|           |------|  6   |  7   |  8   |  9   |  0   |   +    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |  @   |  £   |  $   |  ‰   |      |           |      |  ‚   |  {   |  [   |  ]   |  }   |   \    |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |       |     |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------+------+------|       |------+--------+------.
+ *                                 |      |      |      |       |      |        |      |
+ *                                 |      |      |------|       |------|        |      |
+ *                                 |      |      |      |       |      |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+
+// number and symbol layer
+[SYMB] = LAYOUT_ergodox_pretty(
+
+    _______, _______,    _______,    _______,    _______,    _______,    _______, /*****/ _______, _______,    _______,    _______,    _______,    _______,    _______,
+    _______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), _______, /*****/ _______, LSFT(KC_6), LSFT(KC_7), LSFT(KC_8), LSFT(KC_9), LSFT(KC_0), _______,
+    _______, KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       /**/     /*****/ /**/     KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       _______,
+    _______, RALT(KC_1), RALT(KC_2), RALT(KC_3), RALT(KC_4), RALT(KC_5), _______, /*****/ _______, RALT(KC_6), RALT(KC_7), RALT(KC_8), RALT(KC_9), RALT(KC_0), _______,
+    _______, _______,    _______,    _______,    _______,    /**/        /**/     /*****/ /**/     /**/        _______,    _______,    _______,    _______,    _______,
+
+    /**/     /**/        /**/        /**/        /**/        _______,    _______, /*****/ _______, _______,
+    /**/     /**/        /**/        /**/        /**/        /**/        _______, /*****/ _______,
+    /**/     /**/        /**/        /**/        _______,    _______,    _______, /*****/ _______, _______,    _______
 
 ),
 // }}}
@@ -240,7 +282,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
         case RSFTSPC:
-        case RGUIENT:
+        case SYMBENT:
             // ignore MT interrupt for some of my MT keys
             return ignore_mod_tap_interrupt(record);
             break;
@@ -278,7 +320,7 @@ void matrix_scan_user(void) {
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case RSFTSPC:
-        case RGUIENT:
+        case SYMBENT:
             return TAPPING_TERM + 350;
         default:
             return TAPPING_TERM;
