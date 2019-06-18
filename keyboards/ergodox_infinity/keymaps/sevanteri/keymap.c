@@ -1,3 +1,4 @@
+/* vim: set fdm=marker */
 // Nordic layout for Ergodox infinity
 
 #include QMK_KEYBOARD_H
@@ -33,7 +34,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: Basic layer
+/* Keymap 0: Basic layer {{{
  *
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -70,8 +71,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /**/      /**/    /**/    /**/     LALTSPC, LGUIBSP, KC_LCTRL,  /*****/ MO(FUNCL), RGUIENT, RSFTSPC
 
 ),
+// }}}
 
-/* Keymap 1: Basic layer with functions
+/* Keymap 1: Basic layer with functions {{{
  *
  *
  *
@@ -109,8 +111,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /**/     /**/     /**/     /**/     _______, _______, BL_DEC,   /*****/ _______, _______, _______
 
 ),
+// }}}
 
-/* Keymap 2: Numpad Layer
+/* Keymap 2: Numpad Layer {{{
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | RESET  |      |      |      |      |      |      |           |      |      |NUMLCK|  P/  |  P*  |  P-  | RESET  |
@@ -145,8 +148,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /**/     /**/     /**/     /**/     _______, _______, _______, /*****/ _______, KC_ENT,  KC_0
 
 ),
+// }}}
 
-/* Keymap 3: Gaming (no windows button)
+/* Keymap 3: Gaming {{{
  *
  *
  *
@@ -184,6 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /**/      /**/     /**/     /**/     KC_SPC,  KC_SPC,  _______, /*****/ _______, _______, _______
 
 )
+// }}}
 
 };
 
