@@ -35,8 +35,8 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
         state->layer_text = "Numpad";
     }
     else if (state->status.layer & 1<<3) {
-        state->target_lcd_color = LCD_COLOR(0, saturation, 0x60);
-        state->layer_text = "Sumbols";
+        state->target_lcd_color = LCD_COLOR(128, saturation, 0xFF);
+        state->layer_text = "Symbols";
     }
     else if (state->status.layer & 1<<4) {
         state->target_lcd_color = LCD_COLOR(0, saturation, 0x60);
