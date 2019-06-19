@@ -295,7 +295,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case RSFTSPC:
         case SYMBENT:
-            return TAPPING_TERM + 350;
+            return TAPPING_TERM + 150;
         default:
             return TAPPING_TERM;
     }
