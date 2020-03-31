@@ -44,11 +44,23 @@ static uint16_t key_buffer[MAX_COMBO_LENGTH];
 
 static inline void send_combo(uint16_t action, bool pressed) {
     if (action) {
+#if defined(COMBO_ALLOW_ACTION_KEYS)
+        keyrecord_t record = {
+            .event = {
+                .key = {.col = 254, .row = current_combo_index},
+                .time = timer_read()|1,
+                .pressed = pressed,
+            },
+            .combo_key = action
+        };
+        action_tapping_process(record);
+#else
         if (pressed) {
             register_code16(action);
         } else {
             unregister_code16(action);
         }
+#endif
     } else {
         process_combo_event(current_combo_index, pressed);
     }

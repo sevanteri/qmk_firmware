@@ -107,7 +107,7 @@ void action_exec(keyevent_t event) {
 
 #ifndef NO_ACTION_TAPPING
 #   if defined(COMBO_ENABLE) && defined(COMBO_ALLOW_ACTION_KEYS)
-    if (IS_NOEVENT(record.event) || process_combo(get_event_keycode(record.event), &record)) {
+    if (IS_NOEVENT(record.event) || process_combo(get_record_keycode(&record), &record)) {
         action_tapping_process(record);
     }
 #   else
@@ -169,7 +169,16 @@ __attribute__((weak)) void post_process_record_quantum(keyrecord_t *record) {}
  * FIXME: Needs documentation.
  */
 void process_record_tap_hint(keyrecord_t *record) {
+#if defined(COMBO_ENABLE) && defined(COMBO_ALLOW_ACTION_KEYS)
+    action_t action;
+    if (record->combo_key) {
+        action = keycode_to_action(record->combo_key);
+    } else {
+        action = layer_switch_get_action(record->event.key);
+    }
+#else
     action_t action = layer_switch_get_action(record->event.key);
+#endif
 
     switch (action.kind.id) {
 #    ifdef SWAP_HANDS_ENABLE
@@ -202,7 +211,17 @@ void process_record(keyrecord_t *record) {
 }
 
 void process_record_handler(keyrecord_t *record) {
+#if defined(COMBO_ENABLE) && defined(COMBO_ALLOW_ACTION_KEYS)
+    action_t action;
+    if (record->combo_key) {
+        action = keycode_to_action(record->combo_key);
+    } else {
+        action = store_or_get_action(record->event.pressed, record->event.key);
+    }
+#else
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
+#endif
+
     dprint("ACTION: ");
     debug_action(action);
 #ifndef NO_ACTION_LAYER
@@ -334,7 +353,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
                             if (
 #        ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-                                !get_ignore_mod_tap_interrupt(get_event_keycode(record->event)) &&
+                                !get_ignore_mod_tap_interrupt(get_record_keycode(record)) &&
 #        endif
                                 record->tap.interrupted) {
                                 dprint("mods_tap: tap: cancel: add_mods\n");
@@ -955,6 +974,20 @@ void clear_keyboard_but_mods_and_keys() {
     host_system_send(0);
     host_consumer_send(0);
 #endif
+}
+
+/** \brief Utilities for actions. (FIXME: Needs better description)
+ *
+ * FIXME: Needs documentation.
+ */
+bool is_tap_record(keyrecord_t *record) {
+#if defined(COMBO_ENABLE) && defined(COMBO_ALLOW_ACTION_KEYS)
+    if (record->combo_key) {
+        action_t action = keycode_to_action(record->combo_key);
+        return is_tap_action(action);
+    }
+#endif
+    return is_tap_key(record->event.key);
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)

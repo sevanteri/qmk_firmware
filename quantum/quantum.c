@@ -153,7 +153,14 @@ void reset_keyboard(void) {
 }
 
 /* Convert record into usable keycode via the contained event. */
-uint16_t get_record_keycode(keyrecord_t *record) { return get_event_keycode(record->event); }
+uint16_t get_record_keycode(keyrecord_t *record) {
+#if defined(COMBO_ENABLE) && defined(COMBO_ALLOW_ACTION_KEYS)
+    if (record->combo_key) {
+        return record->combo_key;
+    }
+#endif
+    return get_event_keycode(record->event);
+}
 
 /* Convert event into usable keycode. Checks the layer cache to ensure that it
  * retains the correct keycode after a layer change, if the key is still pressed.
