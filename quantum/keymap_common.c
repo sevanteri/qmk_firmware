@@ -44,7 +44,10 @@ extern keymap_config_t keymap_config;
 action_t action_for_key(uint8_t layer, keypos_t key) {
     // 16bit keycodes - important
     uint16_t keycode = keymap_key_to_keycode(layer, key);
+    return keycode_to_action(keycode);
+}
 
+action_t keycode_to_action(uint16_t keycode) {
     // keycode remapping
     keycode = keycode_config(keycode);
 

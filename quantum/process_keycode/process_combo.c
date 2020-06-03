@@ -49,21 +49,15 @@ static keyrecord_t key_buffer[MAX_COMBO_LENGTH];
 
 static inline void send_combo(uint16_t keycode, bool pressed) {
     if (keycode) {
-        if (pressed) {
-            if (CODE_IS_MOD(keycode)) {
-                register_mods(keycode >> 8);
-                register_code((uint8_t)keycode);
-            } else {
-                register_code16(keycode);
-            }
-        } else {
-            if (CODE_IS_MOD(keycode)) {
-                unregister_mods(keycode >> 8);
-                unregister_code((uint8_t)keycode);
-            } else {
-                unregister_code16(keycode);
-            }
-        }
+        keyrecord_t record = {
+            .event = {
+                .key = {.col = 254, .row = prepared_combo_index},
+                .time = timer_read()|1,
+                .pressed = pressed,
+            },
+            .combo_key = keycode
+        };
+        action_tapping_process(record);
     } else {
         process_combo_event(prepared_combo_index, pressed);
     }
