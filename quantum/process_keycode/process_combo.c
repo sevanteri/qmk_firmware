@@ -25,18 +25,18 @@ extern combo_t  key_combos[];
 extern int      COMBO_LEN;
 #endif
 
-__attribute__((weak)) void process_combo_event(uint16_t combo_index, bool pressed) {}
+__attribute__((weak)) void process_combo_event(uint8_t combo_index, bool pressed) {}
 
 #ifdef COMBO_MUST_HOLD_PER_COMBO
-__attribute__((weak)) bool get_combo_must_hold(uint16_t index, combo_t *combo) { return false; }
+__attribute__((weak)) bool get_combo_must_hold(uint8_t index, combo_t *combo) { return false; }
 #endif
 
 #ifdef COMBO_TERM_PER_COMBO
-__attribute__((weak)) uint16_t get_combo_term(uint16_t index, combo_t *combo) { return COMBO_TERM; }
+__attribute__((weak)) uint16_t get_combo_term(uint8_t index, combo_t *combo) { return COMBO_TERM; }
 #endif
 
 static uint16_t timer               = 0;
-static uint16_t  prepared_combo_index  = -1;
+static uint8_t  prepared_combo_index  = -1;
 static bool     is_active           = true;
 static bool     b_combo_enable      = true;  // defaults to enabled
 static combo_t  *prepared_combo       = NULL;
@@ -70,7 +70,7 @@ static inline void send_combo(uint16_t keycode, bool pressed) {
 }
 
 void clear_combos(bool clear_state) {
-    uint16_t index = 0;
+    uint8_t index = 0;
     prepared_combo = NULL;
     prepared_combo_index = -1;
 #ifndef COMBO_VARIABLE_LEN
@@ -93,7 +93,7 @@ static inline void dump_key_buffer(bool emit) {
     }
 
     if (emit) {
-        for (uint16_t i = 0; i < buffer_size; i++) {
+        for (uint8_t i = 0; i < buffer_size; i++) {
 #ifndef NO_ACTION_TAPPING
             action_tapping_process(key_buffer[i]);
 #else
@@ -123,7 +123,7 @@ void fire_combo(void) {
         combo->state &= ~(1 << key); \
     } while (0)
 
-static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record, uint16_t combo_index) {
+static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record, uint8_t combo_index) {
     uint8_t count = 0;
     uint8_t index = -1;
     /* Find index of keycode and number of combo keys */
@@ -236,9 +236,9 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 #endif
 
 #ifndef COMBO_VARIABLE_LEN
-    for (uint16_t idx = 0; idx < COMBO_COUNT; ++idx) {
+    for (uint8_t idx = 0; idx < COMBO_COUNT; ++idx) {
 #else
-    for (uint16_t idx = 0; idx < COMBO_LEN; ++idx) {
+    for (uint8_t idx = 0; idx < COMBO_LEN; ++idx) {
 #endif
         combo_t *combo = &key_combos[idx];
         is_combo_key |= process_single_combo(combo, keycode, record, idx);
