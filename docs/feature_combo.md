@@ -185,7 +185,15 @@ bool get_combo_must_hold(uint16_t index, combo_t *combo) {
 ```
 
 #### Variable Length Combos
-If `COMBO_VARIABLE_LEN` is defined allows the user to programmatically declare the size of the Combo data structure and avoid updating COMBO_COUNT. Instead a variable is exported called COMBO_LEN and is usually set with something similar to the following in `keymap.c`: `int COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);`
+If `COMBO_VARIABLE_LEN` is defined in `config.h`, it allows the user to programmatically declare the size of the Combo data structure and avoid updating COMBO_COUNT. Instead a variable is exported called COMBO_LEN and is usually set with something similar to the following in `keymap.c`: `int COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);` or by adding `COMBO_LENGTH` as the *last* entry in the combo enum and then `int COMBO_LEN = COMBO_LENGTH;` as such:
+```c
+enum myCombos {
+    ...,
+    COMBO_LENGTH
+};
+int COMBO_LEN = COMBO_LENGTH;
+```
+Regardless of the method used to declare `COMBO_LEN`, this also requires to convert the `combo_t key_combos[COMBO_COUNT] = {...};` line to `combo_t key_combos[] = {...};`.
 
 #### User callbacks
 
