@@ -149,6 +149,7 @@ void oled_task_user(void) {
 |`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*    |Scroll timeout direction is right when defined, left when undefined.                                                      |
 |`OLED_IC`                  |`OLED_IC_SSD1306`|Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                       |
 |`OLED_COLUMN_OFFSET`       |`0`              |(SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.|
+|`OLED_UPDATE_INTERVAL`  |`0`              |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                        |
 
  ## 128x64 & Custom sized OLED Displays
 
@@ -299,6 +300,10 @@ bool oled_on(void);
 // Can be used to manually turn off the screen if it is on
 // Returns true if the screen was off or turns off
 bool oled_off(void);
+
+// Returns true if the oled is currently on, false if it is
+// not
+bool is_oled_on(void);
 
 // Basically it's oled_render, but with timeout management and oled_task_user calling!
 void oled_task(void);

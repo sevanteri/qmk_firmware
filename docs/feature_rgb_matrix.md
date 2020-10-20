@@ -129,7 +129,7 @@ Configure the hardware via your `config.h`:
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
 ```c
-const led_config_t g_led_config = { {
+led_config_t g_led_config = { {
   // Key Matrix to LED Index
   {   5, NO_LED, NO_LED,   0 },
   { NO_LED, NO_LED, NO_LED, NO_LED },
@@ -479,6 +479,14 @@ If you want to set custom indicators, such as an LED for Caps Lock, or layer ind
 ```c
 void rgb_matrix_indicators_kb(void) {
     rgb_matrix_set_color(index, red, green, blue);
+}
+```
+
+In addition, there are the advanced indicator functions.  These are aimed at those with heavily customized displays, where rendering every LED per cycle is expensive.  Such as some of the "drashna" layouts.  This includes a special macro to help make this easier to use: `RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b)`.
+
+```c
+void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
 }
 ```
 

@@ -74,7 +74,7 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
     case ZC_COPY:
       if (pressed) {
@@ -194,6 +194,7 @@ enum myCombos {
 int COMBO_LEN = COMBO_LENGTH;
 ```
 Regardless of the method used to declare `COMBO_LEN`, this also requires to convert the `combo_t key_combos[COMBO_COUNT] = {...};` line to `combo_t key_combos[] = {...};`.
+
 
 #### User callbacks
 
