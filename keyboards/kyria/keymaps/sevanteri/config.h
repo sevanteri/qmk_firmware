@@ -43,3 +43,56 @@
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 /* #define SPLIT_USB_DETECT */
 /* #define NO_USB_STARTUP_CHECK */
+
+/* #define COMBO_NO_TIMER */
+
+// basic alpha keys {{{
+#define POS_Q KPOS(0, 6)
+#define POS_W KPOS(0, 5)
+#define POS_E KPOS(0, 4)
+#define POS_R KPOS(0, 3)
+#define POS_T KPOS(0, 2)
+
+#define POS_Y KPOS(4, 2)
+#define POS_U KPOS(4, 3)
+#define POS_I KPOS(4, 4)
+#define POS_O KPOS(4, 5)
+#define POS_P KPOS(4, 6)
+
+#define POS_A  KPOS(1, 6)
+#define POS_S  KPOS(1, 5)
+#define POS_D  KPOS(1, 4)
+#define POS_F  KPOS(1, 3)
+#define POS_G  KPOS(1, 2)
+
+#define POS_H  KPOS(5, 2)
+#define POS_J  KPOS(5, 3)
+#define POS_K  KPOS(5, 4)
+#define POS_L  KPOS(5, 5)
+#define POS_OE KPOS(5, 6)
+#define POS_AE KPOS(4, 7)
+
+#define  POS_Z     KPOS(2, 6)
+#define  POS_X     KPOS(2, 5)
+#define  POS_C     KPOS(2, 4)
+#define  POS_V     KPOS(2, 3)
+#define  POS_B     KPOS(2, 2)
+
+#define  POS_N     KPOS(6, 2)
+#define  POS_M     KPOS(6, 3)
+#define  POS_COMM  KPOS(6, 4)
+#define  POS_DOT   KPOS(6, 5)
+#define  POS_MINS  KPOS(6, 6)
+
+// left thumb keys (no ignore_mod_tap_interrupt)
+#define  POS_THL1  KPOS(3,0)
+#define  POS_THL2  KPOS(3,1)
+#define  POS_THL3  KPOS(3,2)
+#define  POS_THL4  KPOS(3,3)
+
+// right thumb keys
+#define  POS_THR1  KPOS(7, 0)
+#define  POS_THR2  KPOS(7, 1)
+#define  POS_THR3  KPOS(7, 2)
+#define  POS_THR4  KPOS(7, 3)
+

@@ -38,7 +38,7 @@ __attribute__((weak)) uint16_t get_combo_term(uint16_t index, combo_t *combo) { 
 #endif
 
 #ifdef COMBO_PROCESS_KEY_RELEASE
-__attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) { return false; }
+__attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, keypos_t *keypos) { return false; }
 #endif
 
 #ifndef COMBO_NO_TIMER
@@ -50,7 +50,6 @@ static uint16_t longest_term          = 0;
 typedef struct {
     keyrecord_t record;
     uint16_t combo_index;
-    uint16_t keycode;
 } queued_record_t;
 static uint8_t key_buffer_write = 0;
 static uint8_t key_buffer_read = 0;
@@ -169,12 +168,23 @@ static inline void dump_key_buffer(void) {
         state &= ~(1 << key_index);    \
     } while (0)
 
-static inline void _find_key_index_and_count(const uint16_t *keys, uint16_t keycode, uint16_t *key_index, uint8_t *key_count) {
+static inline void _find_key_index_and_count(const keypos_t *keys, keypos_t *keypos, uint16_t *key_index, uint8_t *key_count) {
     while (true) {
-        uint16_t key = pgm_read_word(&keys[*key_count]);
-        if (keycode == key) *key_index = *key_count;
-        if (COMBO_END == key) break;
+        const keypos_t key = keys[*key_count];
+        if (KEYEQ(*keypos, key)){
+            /* xprintf("%d==%d, %d==%d\n", keypos->row, key.row, keypos->col, key.col); */
+            *key_index = *key_count;
+        }
+        if (key.col == 255 || key.row == 255) {
+            /* xprintf("asdf %d, %d\n", key.col, key.row); */
+
+            return;
+        }
         (*key_count)++;
+        /* if (*key_count > 10) { */
+        /*     xprintf("."); */
+        /*     return; */
+        /* } */
     }
 }
 
@@ -218,7 +228,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
 
         queued_record_t *qrecord = &key_buffer[key_buffer_i];
         keyrecord_t *record = &qrecord->record;
-        uint16_t keycode = qrecord->keycode;
+        keypos_t *keypos = &record->event.key;
 
         combo_t *combo = &key_combos[combo_index];
         if (combo->disabled) {
@@ -227,7 +237,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
 
         uint8_t key_count = 0;
         uint16_t key_index = -1;
-        _find_key_index_and_count(combo->keys, keycode, &key_index, &key_count);
+        _find_key_index_and_count(combo->keys, keypos, &key_index, &key_count);
 
         if (-1 == (int16_t)key_index) {
             // key not part of this combo
@@ -273,15 +283,17 @@ combo_t* overlaps(combo_t *combo1, combo_t *combo2) {
      * dropped from the combo buffer.
      * The combo that has less keys will be dropped. If they have the same
      * amount of keys, drop combo1. */
-
     uint8_t idx1 = 0, idx2 = 0;
-    uint16_t key1, key2;
+    const keypos_t *key1, *key2;
     bool overlaps = false;
 
-    while ((key1 = pgm_read_word(&combo1->keys[idx1])) != COMBO_END) {
+    /* xprintf("overlap check\n"); */
+    while ((key1 = &combo1->keys[idx1])->col != 255) {
         idx2 = 0;
-        while ((key2 = pgm_read_word(&combo2->keys[idx2])) != COMBO_END) {
-            if (key1 == key2) overlaps = true;
+        /* xprintf("overlap check outer\n"); */
+        while ((key2 = &combo2->keys[idx2])->col != 255) {
+            /* xprintf("overlap check inner\n"); */
+            if (KEYEQ(*key1, *key2)) overlaps = true;
             idx2 += 1;
         }
         idx1 += 1;
@@ -292,10 +304,10 @@ combo_t* overlaps(combo_t *combo1, combo_t *combo2) {
     return combo1;
 }
 
-static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record, uint16_t combo_index) {
+static bool process_single_combo(combo_t *combo, keyrecord_t *record, uint16_t combo_index) {
     uint8_t key_count = 0;
     uint16_t key_index = -1;
-    _find_key_index_and_count(combo->keys, keycode, &key_index, &key_count);
+    _find_key_index_and_count(combo->keys, &record->event.key, &key_index, &key_count);
 
     /* Continue processing if key isn't part of current combo. */
     if (-1 == (int16_t)key_index) {
@@ -376,7 +388,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             key_is_part_of_combo = true;
 
 #ifdef COMBO_PROCESS_KEY_RELEASE
-            process_combo_key_release(combo_index, combo, key_index, keycode);
+            process_combo_key_release(combo_index, combo, key_index, &record->event.key);
 #endif
         } else if (combo->active
                 && KEY_NOT_YET_RELEASED(combo->state, key_index)
@@ -385,7 +397,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             key_is_part_of_combo = true;
 
 #ifdef COMBO_PROCESS_KEY_RELEASE
-            if (process_combo_key_release(combo_index, combo, key_index, keycode)) {
+            if (process_combo_key_release(combo_index, combo, key_index, &record->event.key)) {
                 release_combo(combo_index, combo);
             }
 #endif
@@ -425,7 +437,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 
     for (uint16_t idx = 0; idx < COMBO_LEN; ++idx) {
         combo_t *combo = &key_combos[idx];
-        is_combo_key |= process_single_combo(combo, keycode, record, idx);
+        is_combo_key |= process_single_combo(combo, record, idx);
         no_combo_keys_pressed = no_combo_keys_pressed && (NO_COMBO_KEYS_ARE_DOWN || combo->active || combo->disabled);
     }
 
@@ -443,7 +455,6 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 
         key_buffer[key_buffer_write] = (queued_record_t){
             .record = *record,
-            .keycode = keycode,
             .combo_index = -1, // this will be set when applying combos
         };
         INCREMENT_MOD(key_buffer_write);

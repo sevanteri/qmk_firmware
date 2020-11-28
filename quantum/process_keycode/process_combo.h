@@ -30,7 +30,7 @@
 #endif
 
 typedef struct {
-    const uint16_t *keys;
+    const keypos_t *keys;
     uint16_t        keycode;
     bool            disabled : 1;
     bool            active : 1;
@@ -56,6 +56,7 @@ typedef struct {
 #    define COMBO_MOD_TERM 200
 #endif
 
+#define KPOS(_row, _col) (keypos_t){_col, _row}
 /* check if keycode is only modifiers */
 #define KEYCODE_IS_MOD(code) (IS_MOD(code) || ((code & 0xFF00) >= QK_MODS && (code & 0xFF00) <= QK_MODS_MAX && !(code & 0xFF)))
 

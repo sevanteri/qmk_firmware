@@ -221,11 +221,11 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     /*         return COMBO_MOD_TERM; */
     /* } */
 
-    switch(index) {
-        case C_QUOT:
-        case C_ACUT:
-            return 20;
-    }
+    /* switch(index) { */
+    /*     case C_QUOT: */
+    /*     case C_ACUT: */
+    /*         return 20; */
+    /* } */
 
     // Longer term for THUMB+alpha
     /* if (combo->keys[0] == MY_THR3 || */
@@ -249,27 +249,23 @@ bool get_combo_must_hold(uint16_t index, combo_t *combo) { // {{{
 
 
 #ifdef COMBO_PROCESS_KEY_RELEASE
-bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) {
+bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, keypos_t *keypos) {
     switch (combo_index) {
         case C_THUMB_CTL_SFT:
         case C_THUMB_ALT_SFT:
         case C_THUMB_ALT_CTL:
-            switch(keycode) {
-                case MY_A:
-                case MY_THL1:
+            if(KEYEQ(*keypos, POS_A) ||
+               KEYEQ(*keypos, POS_THL1)) {
                     unregister_mods(MOD_MASK_CTRL);
-                    break;
-                case MY_S:
+            } else if (KEYEQ(*keypos, POS_S)) {
                     unregister_mods(MOD_MASK_SHIFT);
-                    break;
-                case MY_THL2:
+            } else if (KEYEQ(*keypos, POS_THL2)) {
                     unregister_mods(MOD_MASK_ALT);
-                    break;
             }
             break;
-        case C_GMAIL:
-            // true releases the combo immediately.
-            return true;
+        /* case C_GMAIL: */
+        /*     // true releases the combo immediately. */
+        /*     return true; */
     }
     return false;
 }
@@ -280,3 +276,15 @@ bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key
 void trigger_tapping(void) {
     action_tapping_process((keyrecord_t){});
 }
+
+
+/* enum myCombos { */
+/*     C_FOO, */
+/*     COMBO_LENGTH */
+/* }; */
+/* uint16_t COMBO_LEN = COMBO_LENGTH; */
+
+/* const keypos_t foo_combo[] = {POS_A, POS_S, KPOS(255,255)}; */
+/* combo_t key_combos[] ={ */
+/*     [C_FOO] = COMBO(foo_combo, KC_X), */
+/* }; */

@@ -1,135 +1,135 @@
 // right hand top row {{{
-COMB(C_CTRLSIX,   LCTL(KC_6),     MY_H,  MY_Y)
-COMB(C_ARING,     FI_ARNG,        MY_H,  MY_U)
-COMB(C_PLUS,      FI_PLUS,        MY_O,  MY_L)
-COMB(C_QUOT,      FI_QUOT,        MY_I,  MY_O)
-COMB(C_ASTERISK,  LSFT(FI_QUOT),  MY_U,  MY_I,  MY_O)
-COMB(C_ACUT,      FI_ACUT,        MY_O,  MY_P)
+COMB(C_CTRLSIX,   LCTL(KC_6),     POS_H,  POS_Y)
+COMB(C_ARING,     FI_ARNG,        POS_H,  POS_U)
+COMB(C_PLUS,      FI_PLUS,        POS_O,  POS_L)
+COMB(C_QUOT,      FI_QUOT,        POS_I,  POS_O)
+COMB(C_ASTERISK,  LSFT(FI_QUOT),  POS_U,  POS_I,  POS_O)
+COMB(C_ACUT,      FI_ACUT,        POS_O,  POS_P)
 
-COMB(C_DIAERESISR,  FI_DIAE,  MY_OE,  MY_P)
+COMB(C_DIAERESISR,  FI_DIAE,  POS_OE,  POS_P)
 
 //}}}
 // right hand home row {{{
 
-COMB(C_LESSTHAN,     FI_LABK,        MY_H,     MY_J)
-COMB(C_GREATERTHAN,  LSFT(FI_LABK),  MY_K,     MY_L)
+COMB(C_LESSTHAN,     FI_LABK,        POS_H,     POS_J)
+COMB(C_GREATERTHAN,  LSFT(FI_LABK),  POS_K,     POS_L)
 
-COMB(C_SLASH,        LSFT(KC_7),     MY_J,     MY_K)
-COMB(C_BACKSLASH,    RALT(FI_PLUS),  MY_THR2,  MY_J,  MY_K)
+COMB(C_SLASH,        LSFT(KC_7),     POS_J,     POS_K)
+COMB(C_BACKSLASH,    RALT(FI_PLUS),  POS_THR2,  POS_J,  POS_K)
 
-COMB(C_QUESTION,         LSFT(FI_PLUS),  MY_THR2,  MY_L,  MY_OE)
-COMB(C_QUESTION2,        LSFT(FI_PLUS),  MY_THR2,  MY_OE)
+COMB(C_QUESTION,         LSFT(FI_PLUS),  POS_THR2,  POS_L,  POS_OE)
+COMB(C_QUESTION2,        LSFT(FI_PLUS),  POS_THR2,  POS_OE)
 
-COMB(C_EQUALS,   LSFT(KC_0),  MY_L,  MY_OE)
+COMB(C_EQUALS,   LSFT(KC_0),  POS_L,  POS_OE)
 
-COMB(C_SQUAREBRACERIGHT,  RALT(KC_9),  MY_M,  MY_DOT)
-COMB(C_PARENRIGHT,        LSFT(KC_9),  MY_J,  MY_K,  MY_L)
-COMB(C_CURLYBRACERIGHT,   RALT(KC_0),  MY_J,  MY_L)
+COMB(C_SQUAREBRACERIGHT,  RALT(KC_9),  POS_M,  POS_DOT)
+COMB(C_PARENRIGHT,        LSFT(KC_9),  POS_J,  POS_K,  POS_L)
+COMB(C_CURLYBRACERIGHT,   RALT(KC_0),  POS_J,  POS_L)
 
-COMB(C_WBAK,      KC_WBAK,        MY_THR2, MY_H)
-COMB(C_NEXTTAB,   CTRLTAB,        MY_THR2, MY_J)
-COMB(C_PREVTAB,   CSFTTAB,        MY_THR2, MY_K)
-COMB(C_WFWD,      KC_WFWD,        MY_THR2, MY_L)
+COMB(C_WBAK,      KC_WBAK,        POS_THR2, POS_H)
+COMB(C_NEXTTAB,   CTRLTAB,        POS_THR2, POS_J)
+COMB(C_PREVTAB,   CSFTTAB,        POS_THR2, POS_K)
+COMB(C_WFWD,      KC_WFWD,        POS_THR2, POS_L)
 
 //}}}
 // right hand bottom row {{{
 
-COMB(C_AMP,          FI_AMPR,  MY_N,     MY_M)
-COMB(C_SEMICOLON,    FI_SCLN,  MY_M,     MY_COMM)
-COMB(C_DOUBLECOLON,  FI_COLN,  MY_COMM,  MY_DOT)
-COMB(C_UNDERSCORE,   FI_UNDS,  MY_DOT,   MY_MINS)
+COMB(C_AMP,          FI_AMPR,  POS_N,     POS_M)
+COMB(C_SEMICOLON,    FI_SCLN,  POS_M,     POS_COMM)
+COMB(C_DOUBLECOLON,  FI_COLN,  POS_COMM,  POS_DOT)
+COMB(C_UNDERSCORE,   FI_UNDS,  POS_DOT,   POS_MINS)
 
-SUBS(C_DOTDOTSLASH,  "../",    MY_THR2,  MY_DOT)
+/* SUBS(C_DOTDOTSLASH,  "../",    POS_THR2,  POS_DOT) */
 
 //}}}
 
 // left hand top row {{{
-COMB(C_WE_TAB,  LT(_FUNC,  KC_TAB),  MY_W,  MY_E)
+COMB(C_WE_TAB,  LT(_FUNC,  KC_TAB),  POS_W,  POS_E)
 
-COMB(C_DIAERESIS,  FI_DIAE,  MY_G,  MY_T)
-COMB(C_SECT,       FI_SECT,  MY_A,  MY_Q)
+COMB(C_DIAERESIS,  FI_DIAE,  POS_G,  POS_T)
+COMB(C_SECT,       FI_SECT,  POS_A,  POS_Q)
 //}}}
 // left hand home row {{{
-COMB(C_EXCLAMATIONP,  FI_EXLM,  MY_A,  MY_S)
-COMB(C_DQUOTES,       LSFT(KC_2),  MY_S,  MY_D)
-COMB(C_HASH,          LSFT(KC_3),  MY_D,  MY_F)
-COMB(C_PERCENTG,      LSFT(KC_5),  MY_F,  MY_G)
+COMB(C_EXCLAMATIONP,  FI_EXLM,  POS_A,  POS_S)
+COMB(C_DQUOTES,       LSFT(KC_2),  POS_S,  POS_D)
+COMB(C_HASH,          LSFT(KC_3),  POS_D,  POS_F)
+COMB(C_PERCENTG,      LSFT(KC_5),  POS_F,  POS_G)
 
-COMB(C_SQUAREBRACELEFT,  RALT(KC_8),  MY_X,  MY_V)
-COMB(C_PARENLEFT,        LSFT(KC_8),  MY_F,  MY_D,  MY_S)
-COMB(C_CURLYBRACELEFT,   RALT(KC_7),  MY_S,  MY_F)
+COMB(C_SQUAREBRACELEFT,  RALT(KC_8),  POS_X,  POS_V)
+COMB(C_PARENLEFT,        LSFT(KC_8),  POS_F,  POS_D,  POS_S)
+COMB(C_CURLYBRACELEFT,   RALT(KC_7),  POS_S,  POS_F)
 
 // thumbs
-COMB(C_THUMB_CTL_SFT,    LCTL(KC_LSFT),   MY_THL1, MY_S)
-COMB(C_THUMB_ALT_SFT,    LALT(KC_LSFT),   MY_THL2, MY_S)
-COMB(C_THUMB_ALT_CTL,    LALT(KC_LCTL),   MY_THL2, MY_A)
+COMB(C_THUMB_CTL_SFT,    LCTL(KC_LSFT),   POS_THL1, POS_S)
+COMB(C_THUMB_ALT_SFT,    LALT(KC_LSFT),   POS_THL2, POS_S)
+COMB(C_THUMB_ALT_CTL,    LALT(KC_LCTL),   POS_THL2, POS_A)
 
 //}}}
 // left hand bottow row {{{
-COMB(C_PIPE,     RALT(FI_LABK),  MY_X,     MY_Z)
-COMB(C_AT,       RALT(KC_2),     MY_X,     MY_C)
-COMB(C_DOLLAR,   RALT(KC_4),     MY_C,     MY_V)
+COMB(C_PIPE,     RALT(FI_LABK),  POS_X,     POS_Z)
+COMB(C_AT,       RALT(KC_2),     POS_X,     POS_C)
+COMB(C_DOLLAR,   RALT(KC_4),     POS_C,     POS_V)
 
 //}}}
 
 
 // both hands {{{
-COMB(C_SLEEP,  KC_SLEP,  MY_Q,     MY_P)
-COMB(C_WAKE,   KC_WAKE,  MY_W,     MY_O)
+COMB(C_SLEEP,  KC_SLEP,  POS_Q,     POS_P)
+COMB(C_WAKE,   KC_WAKE,  POS_W,     POS_O)
 
-COMB(C_RESET,RESET,    MY_V, MY_B, MY_N, MY_M)
+COMB(C_RESET,RESET,    POS_V, POS_B, POS_N, POS_M)
 
-COMB(C_SQUAREBRACEBOTH,  MY_SQUAREBRACEBOTH,  MY_X,  MY_V,  MY_M,  MY_DOT)
-COMB(C_CURLYBRACEBOTH,   MY_CURLYBRACEBOTH,   MY_S,  MY_F,  MY_J,  MY_L)
-COMB(C_PARENSBOTH,       MY_PARENSBOTH,       MY_S,  MY_D,  MY_F,  MY_J,  MY_K,  MY_L)
+COMB(C_SQUAREBRACEBOTH,  MY_SQUAREBRACEBOTH,  POS_X,  POS_V,  POS_M,  POS_DOT)
+COMB(C_CURLYBRACEBOTH,   MY_CURLYBRACEBOTH,   POS_S,  POS_F,  POS_J,  POS_L)
+COMB(C_PARENSBOTH,       MY_PARENSBOTH,       POS_S,  POS_D,  POS_F,  POS_J,  POS_K,  POS_L)
 
 //}}}
 
 // randoms {{{
-COMB(C_MUTE,   KC_MUTE,  KC_VOLU,  KC_VOLD)
+/* COMB(C_MUTE,   KC_MUTE,  KC_VOLU,  KC_VOLD) */
 
-COMB(C_VIM_S,   MY_VIM_S,   MY_THL3,  MY_S)
-COMB(C_VIM_C,   MY_VIM_C,   MY_THL3,  MY_C)
-COMB(C_VIM_CW,  MY_VIM_CW,  MY_THL3,  MY_C,  MY_W)
-COMB(C_VIM_V,   MY_VIM_V,   MY_THL3,  MY_V)
+COMB(C_VIM_S,   MY_VIM_S,   POS_THL3,  POS_S)
+COMB(C_VIM_C,   MY_VIM_C,   POS_THL3,  POS_C)
+COMB(C_VIM_CW,  MY_VIM_CW,  POS_THL3,  POS_C,  POS_W)
+COMB(C_VIM_V,   MY_VIM_V,   POS_THL3,  POS_V)
 
-COMB(C_ALTSHFT, ALTSHFT,   KC_LSFT, CTRLESC, KC_TAB)
+/* COMB(C_ALTSHFT, ALTSHFT,   KC_LSFT, CTRLESC, KC_TAB) */
 
 
 // string combos, always double handed: thumb2 plus letter from other hand {{{
 
-SUBS(C_GMAIL,  "pete.sevander@gmail.com",  MY_THR2,  MY_G)
-SUBS(C_PETE,   "Pete",                     MY_THL2,  MY_P)
-SUBS(C_SEVA,   "Sevander",                 MY_THR2,  MY_S)
+/* SUBS(C_GMAIL,  "pete.sevander@gmail.com",  POS_THR2,  POS_G) */
+/* SUBS(C_PETE,   "Pete",                     POS_THL2,  POS_P) */
+/* SUBS(C_SEVA,   "Sevander",                 POS_THR2,  POS_S) */
 
-SUBS(C_OULD,   "ould",    MY_THL2, MY_U)
+/* SUBS(C_OULD,   "ould",    POS_THL2, POS_U) */
 
 // python
 
-SUBS(C_IMPORT,  "import",  MY_THL2,  MY_I)
-SUBS(C_FROM,    "from",    MY_THR2,  MY_F)
-SUBS(C_class,   "class",   MY_THR2,  MY_C)
+/* SUBS(C_IMPORT,  "import",  POS_THL2,  POS_I) */
+/* SUBS(C_FROM,    "from",    POS_THR2,  POS_F) */
+/* SUBS(C_class,   "class",   POS_THR2,  POS_C) */
 
 // }}}
 
 // tap dances {{{
 #ifdef TAP_DANCE_ENABLE
-/* COMB(C_PSCRINS,  TD(TD_PSCR_INS),   MY_COMM, MY_MINS) */
-/* COMB(C_EXCLAMATIONP,  TD(TD_SEEND_EXLM),  MY_A,  MY_S) */
-/* COMB(C_QUESTION,         TD(TD_SEEND_QUES),  MY_THR2,  MY_L,  MY_OE) */
+/* COMB(C_PSCRINS,  TD(TD_PSCR_INS),   POS_COMM, POS_MINS) */
+/* COMB(C_EXCLAMATIONP,  TD(TD_SEEND_EXLM),  POS_A,  POS_S) */
+/* COMB(C_QUESTION,         TD(TD_SEEND_QUES),  POS_THR2,  POS_L,  POS_OE) */
 #endif
 // }}}
 
 // alt + number for browser tabs and tmux {{{
-COMB(C_ALTN1,            LALT(KC_1),    MY_THL2,  MY_Q)
-COMB(C_ALTN2,            LALT(KC_2),    MY_THL2,  MY_W)
-COMB(C_ALTN3,            LALT(KC_3),    MY_THL2,  MY_E)
-COMB(C_ALTN4,            LALT(KC_4),    MY_THL2,  MY_R)
-COMB(C_ALTN5,            LALT(KC_5),    MY_THL2,  MY_T)
-COMB(C_ALTN6,            LALT(KC_6),    MY_THR2, MY_Y)
-COMB(C_ALTN7,            LALT(KC_7),    MY_THR2, MY_U)
-COMB(C_ALTN8,            LALT(KC_8),    MY_THR2, MY_I)
-COMB(C_ALTN9,            LALT(KC_9),    MY_THR2, MY_O)
-COMB(C_ALTN0,            LALT(KC_0),    MY_THR2, MY_P)
+COMB(C_ALTN1,            LALT(KC_1),    POS_THL2,  POS_Q)
+COMB(C_ALTN2,            LALT(KC_2),    POS_THL2,  POS_W)
+COMB(C_ALTN3,            LALT(KC_3),    POS_THL2,  POS_E)
+COMB(C_ALTN4,            LALT(KC_4),    POS_THL2,  POS_R)
+COMB(C_ALTN5,            LALT(KC_5),    POS_THL2,  POS_T)
+COMB(C_ALTN6,            LALT(KC_6),    POS_THR2, POS_Y)
+COMB(C_ALTN7,            LALT(KC_7),    POS_THR2, POS_U)
+COMB(C_ALTN8,            LALT(KC_8),    POS_THR2, POS_I)
+COMB(C_ALTN9,            LALT(KC_9),    POS_THR2, POS_O)
+COMB(C_ALTN0,            LALT(KC_0),    POS_THR2, POS_P)
 //}}}
 //}}}
