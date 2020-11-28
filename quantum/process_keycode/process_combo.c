@@ -20,7 +20,7 @@
 
 
 #ifdef COMBO_COUNT
-__attribute__((weak)) combo_t  key_combos[COMBO_COUNT];
+__attribute__((weak)) combo_t PROGMEM key_combos[COMBO_COUNT];
 uint16_t COMBO_LEN = COMBO_COUNT;
 #else
 extern combo_t  key_combos[];
@@ -170,7 +170,8 @@ static inline void dump_key_buffer(void) {
 
 static inline void _find_key_index_and_count(const keypos_t *keys, keypos_t *keypos, uint16_t *key_index, uint8_t *key_count) {
     while (true) {
-        const keypos_t key = keys[*key_count];
+        keypos_t key;
+        memcpy_P(&key, &keys[*key_count], sizeof(keypos_t));
         if (KEYEQ(*keypos, key)){
             /* xprintf("%d==%d, %d==%d\n", keypos->row, key.row, keypos->col, key.col); */
             *key_index = *key_count;
@@ -284,19 +285,23 @@ combo_t* overlaps(combo_t *combo1, combo_t *combo2) {
      * The combo that has less keys will be dropped. If they have the same
      * amount of keys, drop combo1. */
     uint8_t idx1 = 0, idx2 = 0;
-    const keypos_t *key1, *key2;
+    keypos_t key1, key2;
     bool overlaps = false;
 
     /* xprintf("overlap check\n"); */
-    while ((key1 = &combo1->keys[idx1])->col != 255) {
+    memcpy_P(&key1, &combo1->keys[idx1], sizeof(keypos_t));
+    while (key1.col != 255) {
         idx2 = 0;
         /* xprintf("overlap check outer\n"); */
-        while ((key2 = &combo2->keys[idx2])->col != 255) {
+        memcpy_P(&key2, &combo2->keys[idx2], sizeof(keypos_t));
+        while (key2.col != 255) {
             /* xprintf("overlap check inner\n"); */
-            if (KEYEQ(*key1, *key2)) overlaps = true;
+            if (KEYEQ(key1, key2)) overlaps = true;
             idx2 += 1;
+            memcpy_P(&key2, &combo2->keys[idx2], sizeof(keypos_t));
         }
         idx1 += 1;
+        memcpy_P(&key1, &combo1->keys[idx1], sizeof(keypos_t));
     }
 
     if (!overlaps) return NULL;

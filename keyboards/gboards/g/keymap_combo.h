@@ -3,7 +3,7 @@
 #define TICKPOS KPOS(255, 255)
 
 #define K_ENUM(name, key, ...) name,
-#define K_DATA(name, key, ...) const keypos_t cmb_##name[] = {__VA_ARGS__, TICKPOS};
+#define K_DATA(name, key, ...) const keypos_t PROGMEM cmb_##name[] = {__VA_ARGS__, TICKPOS};
 #define K_COMB(name, key, ...) [name] = COMBO(cmb_##name, key),
 
 #define A_ENUM(name, string, ...) name,
