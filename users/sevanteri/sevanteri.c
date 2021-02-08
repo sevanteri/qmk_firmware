@@ -3,6 +3,7 @@
 #include "sevanteri.h"
 #include "sendstring_finnish.h"
 #include "keymap_finnish.h"
+#include "caps_word.c"
 
 #ifdef POINTING_DEVICE_ENABLE
 #include "pointing_device.h"
@@ -24,7 +25,6 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 static uint16_t code_timer;
 uint8_t tb_brightness = 42;
 
-static bool word_caps = false;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
     const bool pressed = record->event.pressed;
     switch (keycode) {
@@ -62,23 +62,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
             if (!pressed) break;
             tap_code(KC_HOME);
             tap_code16(LSFT(KC_END));
-            break;
+            return false;
         case MY_VIM_S:
             if (!pressed) break;
             tap_code(KC_HOME);
             tap_code16(LSFT(KC_END));
             tap_code(KC_BSPC);
-            break;
+            return false;
         case MY_VIM_C:
             if (!pressed) break;
             tap_code16(LSFT(KC_END));
             tap_code(KC_BSPC);
-            break;
+            return false;
         case MY_VIM_CW:
             if (!pressed) break;
             tap_code16(LCTL(LSFT(KC_RIGHT)));
             tap_code(KC_BSPC);
-            break;
+            return false;
         case MY_PARENSBOTH:
             if (!pressed) break;
             tap_code16(FI_LPRN);
@@ -88,7 +88,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
             tap_code16(FI_RPRN);
             tap_code16(KC_UP);
             tap_code16(KC_END);
-            break;
+            return false;
         case MY_SQUAREBRACEBOTH:
             if (!pressed) break;
             tap_code16(FI_LBRC);
@@ -98,7 +98,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
             tap_code16(FI_RBRC);
             tap_code16(KC_UP);
             tap_code16(KC_END);
-            break;
+            return false;
         case MY_CURLYBRACEBOTH:
             if (!pressed) break;
             tap_code16(FI_LCBR);
@@ -108,58 +108,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
             tap_code16(FI_RCBR);
             tap_code16(KC_UP);
             tap_code16(KC_END);
-            break;
+            return false;
         case WORDCAPS:
             if (pressed) return false;
-            if (!(word_caps = !word_caps))
-                unregister_mods(MOD_LSFT);
+            caps_word_toggle();
             return false;
     }
 
-    // WORDCAPS
-    bool is_tapping_key_and_held = false;
-    switch (keycode) {
-        case QK_LAYER_TAP...QK_LAYER_TAP_MAX:
-        case QK_MOD_TAP...QK_MOD_TAP_MAX:
-            if (record->tap.count == 0) {
-                is_tapping_key_and_held = true;
-            }
-    }
-    if (word_caps && !is_tapping_key_and_held) {
-        switch (keycode & 0xFF) {
-            // only shift basic alphas
-            case FI_ADIA:
-            case FI_ODIA:
-            case KC_A...KC_Z:
-                // Disable when modifiers other than shift is pressed.
-                if (get_mods() & ~MOD_MASK_SHIFT) {
-                    word_caps = false;
-                    unregister_mods(MOD_LSFT);
-                    break;
-                }
-                add_mods(MOD_LSFT);
-                break;
-            // Disable with white space and dot.
-            case KC_SPC:
-            case KC_TAB:
-            case KC_DOT:
-            case KC_ENT:
-                word_caps = false;
-                unregister_mods(MOD_LSFT);
-                break;
-            case KC_ESC:
-                // Esc only turns word_caps off but doesn't process further.
-                word_caps = false;
-                unregister_mods(MOD_LSFT);
-                return false;
-            default:
-                del_mods(MOD_LSFT);
-                break;
-        }
-    }
-
 #ifdef POINTING_DEVICE_ENABLE
-
     report_mouse_t report = pointing_device_get_report();
     switch(keycode) {
         case KC_BTN1:
@@ -183,6 +139,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
     }
 #endif
 
+    process_caps_word(keycode, record);
     return process_record_keymap(keycode, record);
 } // }}}
 
