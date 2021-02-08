@@ -9,9 +9,10 @@
 
 #include QMK_KEYBOARD_H
 #include "sevanteri.h"
-#include "wrappers.h"
 #include "keymap_finnish.h"
 #include "pointing_device.h"
+#include "qmk_midi.h"
+#include "process_midi.h"
 #ifdef PIMORONI_TRACKBALL_ENABLE
 #include "pimoroni_trackball.h"
 # if defined(RAW_ENABLE)
@@ -20,66 +21,26 @@
 # endif
 #endif
 
+enum gergo_layer {
+    _NOTES,
+    _CHANNELS,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer {{{ */
-[_BASE] = LAYOUT_gergo_wrapper(
-    KC_TAB,  _________________QWERTY_L1_________________, /**/     /**/     /**/ /**/     /**/     _________________QWERTY_R1_________________, FI_QUOT,
-    CTRLESC,  _________________QWERTY_L2_________________, FI_DIAE, /**/     /**/ /**/     FI_ARNG, _________________QWERTY_R2_________________, MY_AE,
-    KC_LSFT, _________________QWERTY_L3_________________, _______, _______,  /**/ _______, _______, _________________QWERTY_R3_________________, KC_RSFT,
-    /******/ /******/ /******/ /******/ MY_THL4, MY_THL3, MY_THL2, MY_THL1,  /**/ MY_THR1, MY_THR2, MY_THR3, MY_THR4
-    ),
-// }}}
-/* Keymap 1: numbers and Symbols layer {{{ */
-[_SYMB] = LAYOUT_gergo_wrapper(
-    FI_SECT,       _________________SYMB_L1___________________, /******/   /******/ /****/ /******/ /******/ _________________SYMB_R1___________________, FI_PLUS,
-    LSFT(FI_SECT), _________________SYMB_L2___________________, RALT(FI_DIAE), /**/ /****/ /******/ _______, _________________SYMB_R2___________________, LSFT(FI_PLUS),
-    RALT(FI_LABK), _________________SYMB_L3___________________, _______, _______,   /****/ _______, _______, _________________SYMB_R3___________________, RALT(FI_PLUS),
-    /******/       /******/ /******/ /******/            KC_NO, ___SYMB_THUMBLN_,   /****/  ___SYMB_THUMBRN_, KC_NO
-    ),
-// }}}
-/* Keymap 2: Function layer {{{ */
-[_FUNC] = LAYOUT_gergo_wrapper(
-    MO(_STUF), _________________FUNCL_L1__________________, /******/ /******/ /****/ /******/ /******/ _________________FUNCL_R1__________________, KC_DEL,
-    _______,  _________________FUNCL_L2__________________, KC_PGUP, /******/ /****/ /******/ _______, _________________FUNCL_R2__________________, _______,
-    _______,  _________________FUNCL_L3__________________, KC_PGDN, _______, /****/ _______, _______, _________________FUNCL_R3__________________, KC_MNXT,
-    /******/  /******/ /******/ /******/ KC_NO, ___FUNC_THUMBLN_,  /****/ ___FUNC_THUMBRN_, KC_NO
-    ),
-// }}}
-/* Keymap 3: stuff {{{
- *
- * ,-------------------------------------------.                         ,-------------------------------------------.
- * |        |      |      |      |RESET |      |                         |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|------.           .------|------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|------|           |------|------+------+------+------+------+--------|
- * |        |      |      |CMBTOG|      |      |      |           |      |MOURST|      |      |      |      |        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *                        .------.   .------.                                 .------.   .-----.
- *                        |      |   |      |                                 |      |   |     |
- *                        '------'   '------'                                 `------.   '-----'
- *                                        ,-------.       ,-------.
- *                                        |       |       |       |
- *                                 ,------|-------|       |-------|------.
- *                                 |      |       |       |       |      |
- *                                 |      |       |       |       |      |
- *                                 |      |       |       |       |      |
- *                                 `--------------'       `--------------'
- */
-[_STUF] = LAYOUT_gergo_wrapper(
-    KC_TRNS, _________________STUFF_L1__________________,                                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,
-    KC_TRNS, _________________STUFF_L2__________________, KC_TRNS,                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, _________________STUFF_L3__________________, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-//}}}
-/* Mouse {{{ */
-[_MOUS] = LAYOUT_gergo_wrapper(
-    XXXXXXX, ___________________________________________,                                             KC_BTN1, KC_BTN2, KC_BTN3, _______, _______, XXXXXXX,
-    XXXXXXX, _______, KC_BTN3, KC_BTN2, KC_BTN1, _______, XXXXXXX,                           XXXXXXX, ___________________________________________, XXXXXXX,
-    XXXXXXX, ___________________________________________, XXXXXXX, XXXXXXX,         XXXXXXX, XXXXXXX, ___________________________________________, XXXXXXX,
-                                        _________________________, XXXXXXX,         XXXXXXX, _______, _______, _______
+[_NOTES] = LAYOUT_gergo(
+    MI_OCTU,  _______, MI_Cs,   MI_Ds,   _______, MI_Fs,   /**/     /**/     /**/ /**/     /**/     MI_Gs,   MI_As,   _______, MI_Cs_1, MI_Ds_1, _______,
+    MI_OCTD,  MI_C,    MI_D,    MI_E,    MI_F,    MI_G,    XXXXXXX, /**/     /**/ /**/     XXXXXXX, MI_A,    MI_B,    MI_C_1,  MI_D_1,  MI_E_1,  MI_F_1,
+    _______, _______, _______, _______, _______, MI_MOD, XXXXXXX, XXXXXXX, /**/ XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______, _______,
+    /******/  /******/ /******/ /******/ MI_BENDD, MI_BENDU, MI_SUS,  MI_PORT, /**/ MI_SOST, MI_SOFT, MI_LEG,  MO(_CHANNELS)
     )
-//   }}}
+// }}}
+,[_CHANNELS] = LAYOUT_gergo(
+    MI_TRNSU, MI_CH1,  MI_CH2,  MI_CH3,  MI_CH4,  MI_CH5,  /**/     /**/     /**/ /**/     /**/     MI_CH6,  MI_CH7,  MI_CH8,  MI_CH9,  MI_CH10, KC_TRNS,
+    MI_TRNSD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, /**/     /**/ /**/     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, /**/ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    /******/ /******/ /******/ /******/ _______, _______, _______, _______, /**/ _______, _______, _______, _______
+    )
 };
 
 /* Keymap template {{{ */
@@ -96,13 +57,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef PIMORONI_TRACKBALL_ENABLE
 // {{{
 #include "timer.h"
-#include "math.h"
 #include "quantum/quantum.h"
 
 static int16_t mouse_auto_layer_timer = 0;
 #define MOUSE_TIMEOUT 600
 #define TRACKBALL_TIMEOUT 5
 
+#define SIGN(x) ((x > 0) - (x < 0))
 // user config EEPROM stuff {{{
 typedef union {
   uint32_t raw;
@@ -156,60 +117,42 @@ static int16_t v_offset = 0;
 static int16_t h_offset = 0;
 static int16_t tb_timer = 0;
 void pointing_device_task() {
-    report_mouse_t mouse = pointing_device_get_report();
-
     if (trackball_get_interrupt() && (!tb_timer || timer_elapsed(tb_timer) > TRACKBALL_TIMEOUT)) {
         tb_timer = timer_read() | 1;
 
         trackball_state_t state = trackball_get_state();
 
-        uint8_t mods;
-        if (state.raw_x || state.raw_y) {
+        __attribute__((unused))
+        uint8_t mods = 0;
+        if (state.x || state.y) {
             trigger_tapping();
             mods = get_mods();
         }
 
         if (state.button_triggered) {
             if(state.button_down) {
-                mouse.buttons |= MOUSE_BTN1;
             } else {
-                mouse.buttons &= ~MOUSE_BTN1;
             }
-            pointing_device_set_report(mouse);
-            pointing_device_send();
         } else {
 
             if (layer_state_is(_STUF)) {
-                tb_brightness += state.raw_y * 4;
+                tb_brightness += state.y * 4;
                 trackball_set_brightness(tb_brightness | 1);
 
             } else if (layer_state_is(_FUNC)) {
                 h_offset += state.x;
                 v_offset -= state.y;
 
-#if defined(RAW_ENABLE)
-            } else if (layer_state_is(SYMB)) {
-                // set volume
-                uint8_t msg[RAW_EPSIZE];
-                sprintf((char *)msg, "VOL:%3d ", state.y);
-                raw_hid_send(msg, RAW_EPSIZE);
-#endif
-
-            } else if (state.raw_x || state.raw_y) {
+            } else if (state.x || state.y) {
 
                 if (!mouse_auto_layer_timer && !layer_state_is(_FUNC)) {
                     layer_on(_MOUS);
                 }
                 mouse_auto_layer_timer = timer_read() | 1;
-
-                float power = 3;
-                if (mods & MOD_MASK_CTRL) power = 1.8;
-                /* else if (mods & MOD_MASK_ALT) power = 3.2; */
-
-                double newlen = pow(state.vector_length, power);
-
-                x_offset += (newlen * cos(state.angle_rad));
-                y_offset += (newlen * sin(state.angle_rad));
+                uint8_t scale = 3;
+                if (mods & MOD_MASK_CTRL) scale = 2;
+                x_offset += state.x * state.x * SIGN(state.x) * scale;
+                y_offset += state.y * state.y * SIGN(state.y) * scale;
 
             }
         }
@@ -222,14 +165,11 @@ void pointing_device_task() {
     }
 
     while (x_offset || y_offset || h_offset || v_offset) {
-        update_member(&mouse.x, &x_offset);
-        update_member(&mouse.y, &y_offset);
+        /* update_member(&mouse.x, &x_offset); */
+        /* update_member(&mouse.y, &y_offset); */
 
-        update_member(&mouse.v, &v_offset);
-        update_member(&mouse.h, &h_offset);
+        midi_send_pitchbend(&midi_device, midi_config.channel, y_offset);
 
-        pointing_device_set_report(mouse);
-        pointing_device_send();
     }
 }
 
