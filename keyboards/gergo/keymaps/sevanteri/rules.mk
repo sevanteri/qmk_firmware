@@ -1,7 +1,7 @@
 BALLER = no 			# Enable to ball out
 BALLSTEP = 20  			# Multiple in px to move, multiplied by layer number
 SCROLLSTEP = 1 			# Lines to scroll with ball
-MOUSEKEY_ENABLE = yes  		# Mouse keys(+4700), needed for baller
+MOUSEKEY_ENABLE = no  		# Mouse keys(+4700), needed for baller
 
 #Debug options
 VERBOSE 		 = yes
@@ -13,15 +13,16 @@ UNICODE_ENABLE   = no  # Unicode
 SWAP_HANDS_ENABLE= no  # Allow swapping hands of keyboard
 
 TAP_DANCE_ENABLE = no
-COMBO_ENABLE = yes
+COMBO_ENABLE = no
 LEADER_ENABLE = no
 
 # enable console and command for debugging
-POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_ENABLE = no
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
 
 PIMORONI_TRACKBALL_ENABLE = yes
+MIDI_ENABLE = yes
 
 LTO_ENABLE = yes
 
