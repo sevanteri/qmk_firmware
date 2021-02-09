@@ -56,9 +56,9 @@ SOFTWARE.
 #    define VISUALIZER_THREAD_PRIORITY (NORMAL_PRIORITY - 2)
 #endif
 
-static visualizer_keyboard_status_t current_status = {.layer         = 0xFFFFFFFF,
-                                                      .default_layer = 0xFFFFFFFF,
-                                                      .leds          = 0xFFFFFFFF,
+static visualizer_keyboard_status_t current_status = {.layer         = -1,
+                                                      .default_layer = -1,
+                                                      .leds          = -1,
 #ifdef BACKLIGHT_ENABLE
                                                       .backlight_level = 0,
 #endif
@@ -238,10 +238,10 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
     geventAttachSource(&event_listener, (GSourceHandle)&current_status, 0);
 
     visualizer_keyboard_status_t initial_status = {
-        .default_layer = 0xFFFFFFFF,
-        .layer         = 0xFFFFFFFF,
+        .default_layer = -1,
+        .layer         = -1,
         .mods          = 0xFF,
-        .leds          = 0xFFFFFFFF,
+        .leds          = -1,
         .suspended     = false,
 #ifdef BACKLIGHT_ENABLE
         .backlight_level = 0,

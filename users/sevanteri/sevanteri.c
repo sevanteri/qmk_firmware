@@ -3,7 +3,7 @@
 #include "sevanteri.h"
 #include "sendstring_finnish.h"
 #include "keymap_finnish.h"
-#include "caps_word.c"
+#include "casemodes.h"
 
 #ifdef POINTING_DEVICE_ENABLE
 #include "pointing_device.h"
@@ -110,8 +110,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
             tap_code16(KC_END);
             return false;
         case WORDCAPS:
-            if (pressed) return false;
-            caps_word_toggle();
+            if (pressed && !xcase_enabled()) {
+                enable_xcase();
+            } else if (!pressed) {
+                if (xcase_waiting()) {
+                    disable_xcase();
+                    toggle_caps_word();
+                }
+            }
             return false;
     }
 
@@ -139,15 +145,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
     }
 #endif
 
-    process_caps_word(keycode, record);
+    if (!process_case_modes(keycode, record)) {
+        return false;
+    }
     return process_record_keymap(keycode, record);
+} // }}}
+
+bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) { // {{{
+    switch (keycode) {
+        // Keycodes to ignore (don't disable caps word)
+
+        case KC_A ... KC_Z:
+        case KC_1 ... KC_0:
+            // If mod chording disable the mods
+            if (record->event.pressed && (get_mods() != 0)) {
+                return true;
+            }
+            return false;
+
+        case KC_ESC:
+        case KC_ENT:
+        case KC_TAB:
+        case KC_SPC:
+            return true;
+    }
+
+    return false;
 } // }}}
 
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { // {{{
     switch (keycode) {
         case LCTL_T(KC_ESC):
         case MY_THL1:
-        case MY_THL2:
+        /* case MY_THL2: */
         case MY_THL3:
         case MY_THR2:
             return false;
@@ -190,10 +220,14 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #ifdef COMBO_ENABLE
 bool get_combo_must_tap(uint16_t combo_idx, combo_t* combo) { // {{{
     switch (combo_idx) {
+        case C_CODEBLK:
         case C_THUMB_CTL_SFT:
         case C_THUMB_ALT_SFT:
         case C_THUMB_ALT_CTL:
             return false;
+        case C_EXCLAMATIONP:
+        case C_ACUT:
+            return true;
     }
     switch (combo->keycode) {
         case QK_TAP_DANCE...QK_TAP_DANCE_MAX:
@@ -217,6 +251,10 @@ bool get_combo_must_tap(uint16_t combo_idx, combo_t* combo) { // {{{
 
 // custom combo terms {{{
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+
+    if (index > C_VERT_PLACEHOLDER) return 100;
+
+
     if (KEYCODE_IS_MOD(combo->keycode)) return COMBO_HOLD_TERM;
     /* if (get_combo_tap_only(index, combo)) return 20; */
 
