@@ -9,16 +9,16 @@
 #define _________________QWERTY_L1_________________   MY_Q, MY_W, MY_E, MY_R, MY_T
 #define _________________QWERTY_L2_________________   MY_A, MY_S, MY_D, MY_F, MY_G
 #define _________________QWERTY_L3_________________   MY_Z, MY_X, MY_C, MY_V, MY_B
-#define _QWERTY_L1_______________   WORDCAPS, _________________QWERTY_L1_________________
-#define _QWERTY_L2_______________   CTRLESC,  _________________QWERTY_L2_________________
-#define _QWERTY_L3_______________   KC_LSFT,  _________________QWERTY_L3_________________
+#define _QWERTY_L1_______________   MY_TAB, _________________QWERTY_L1_________________
+#define _QWERTY_L2_______________   MY_ESC,  _________________QWERTY_L2_________________
+#define _QWERTY_L3_______________   MY_LSFT,  _________________QWERTY_L3_________________
 
 #define _________________QWERTY_R1_________________   MY_Y, MY_U, MY_I,    MY_O,   MY_P
 #define _________________QWERTY_R2_________________   MY_H, MY_J, MY_K,    MY_L,   MY_OE
 #define _________________QWERTY_R3_________________   MY_N, MY_M, MY_COMM, MY_DOT, MY_MINS
-#define _______________QWERTY_R1_   _________________QWERTY_R1_________________, FI_QUOT
+#define _______________QWERTY_R1_   _________________QWERTY_R1_________________, MY_QUOT
 #define _______________QWERTY_R2_   _________________QWERTY_R2_________________, MY_AE
-#define _______________QWERTY_R3_   _________________QWERTY_R3_________________, KC_RSFT
+#define _______________QWERTY_R3_   _________________QWERTY_R3_________________, MY_RSFT
 
 
 #define _________________SYMB_L1___________________   KC_1,       KC_2,       KC_3,       KC_4,       KC_5
@@ -68,7 +68,7 @@
 
 
 #define ____QWERTY_R4___    MY_THR3,  MY_THR4
-#define ____SYMB_R4_____    _______,  SE_ACUT
+#define ____SYMB_R4_____    _______,  FI_ACUT
 #define ____FUNC_R4_____    _______,  KC_RALT
 #define ____MOUS_R4_____    KC_BTN3,  _______
 

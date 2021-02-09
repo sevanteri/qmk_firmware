@@ -29,11 +29,19 @@ enum my_layers {
 __attribute__((unused))
 extern uint8_t tb_brightness;
 
+// other keys
+#define CTRLTAB LCTL(KC_TAB)
+#define CSFTTAB LCTL(LSFT(KC_TAB))
+#define CTRLESC CTL_T(KC_ESC)
+
 // left thumb keys (no ignore_mod_tap_interrupt)
 #define  MY_THL1  LCTL_T(KC_BSPC)
 #define  MY_THL2  LALT_T(KC_SPC)
 #define  MY_THL3  KC_LGUI
 #define  MY_THL4  KC_MS_BTN1
+
+#define  MY_THUL1  MO(_FUNC)
+#define  MY_THUL2  MO(_SYMB)
 
 // right thumb keys
 #define  MY_THR1  LT(_FUNC, KC_ENT)
@@ -41,7 +49,10 @@ extern uint8_t tb_brightness;
 #define  MY_THR3  MO(_SYMB)
 #define  MY_THR4  RALT_T(KC_INS)
 
+#define  MY_THUR1  KC_SPACE
+
 // basic alpha keys {{{
+#define  MY_TAB WORDCAPS
 #define  MY_Q  KC_Q
 #define  MY_W  KC_W
 #define  MY_E  KC_E
@@ -52,7 +63,9 @@ extern uint8_t tb_brightness;
 #define  MY_I  KC_I
 #define  MY_O  KC_O
 #define  MY_P  KC_P
+#define  MY_QUOT FI_QUOT
 
+#define MY_ESC CTRLESC
 #define MY_A  KC_A
 #define MY_S  KC_S
 #define MY_D  KC_D
@@ -65,6 +78,7 @@ extern uint8_t tb_brightness;
 #define MY_OE FI_ODIA
 #define MY_AE LCTL_T(FI_ADIA)
 
+#define  MY_LSFT  KC_LSFT
 #define  MY_Z     KC_Z
 #define  MY_X     KC_X
 #define  MY_C     KC_C
@@ -76,12 +90,8 @@ extern uint8_t tb_brightness;
 #define  MY_DOT   KC_DOT
 /* #define  MY_DOT   TD(TD_SEEND_DOT) */
 #define  MY_MINS  FI_MINS
+#define  MY_RSFT  KC_RSFT
 //}}}
-
-// other keys
-#define CTRLTAB LCTL(KC_TAB)
-#define CSFTTAB LCTL(LSFT(KC_TAB))
-#define CTRLESC CTL_T(KC_ESC)
 
 #ifdef TAP_DANCE_ENABLE
 // tap dances {{{

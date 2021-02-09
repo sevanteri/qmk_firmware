@@ -1,6 +1,9 @@
-SRC += sevanteri.c
+SRC += sevanteri.c \
+       casemodes.c
 
 SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no
+
 
 VPATH += keyboards/gboards/
 
