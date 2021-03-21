@@ -7,6 +7,7 @@ enum customKeycodes {
     TB_B_UP, // Trackball brightness
     TB_B_DN,
     WORDCAPS, // caps lock for one word
+    LEADER,
     // from combos:
     MY_VIM_V,
     MY_VIM_S,
@@ -52,7 +53,7 @@ extern uint8_t tb_brightness;
 #define  MY_THUR1  KC_SPACE
 
 // basic alpha keys {{{
-#define  MY_TAB WORDCAPS
+#define  MY_TAB LEADER
 #define  MY_Q  KC_Q
 #define  MY_W  KC_W
 #define  MY_E  KC_E
