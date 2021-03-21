@@ -103,5 +103,7 @@ clang
 -Ilib/lufa
 -includekeyboards/kyria/kyria.h
 -includekeyboards/kyria/rev1/kyria.h
+-includequantum/keymap_extras/sendstring_finnish.h
+-includequantum/keymap_extras/keymap_finnish.h
 -Itmk_core/common
 -includetmk_core/protocol/usb_hid/USB_Host_Shield_2.0/version_helper.h
