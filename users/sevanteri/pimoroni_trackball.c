@@ -1,7 +1,7 @@
 #include "pimoroni_trackball.h"
 #include "i2c_master.h"
 
-#ifndef TRACKBALL_NO_MATH
+#ifdef TRACKBALL_WITH_MATH
 #include "math.h"
 #   ifndef TRACKBALL_ANGLE_OFFSET
 #   define TRACKBALL_ANGLE_OFFSET 0
@@ -69,7 +69,7 @@ trackball_state_t trackball_get_state(void) {
         .button_triggered = s[4] & 0x01,
     };
 
-#ifndef TRACKBALL_NO_MATH
+#ifdef TRACKBALL_WITH_MATH
     state.angle_rad = atan2(state.y, state.x) + TRACKBALL_ANGLE_OFFSET;
     state.vector_length = sqrt(pow(state.x, 2) + pow(state.y, 2));
     state.raw_x = state.x;

@@ -106,10 +106,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "quantum/quantum.h"
 #include "i2c_master.h"
 
-#ifndef TRACKBALL_NO_MATH
-#include "math.h"
-#endif
-
 static int16_t mouse_auto_layer_timer = 0;
 #define MOUSE_TIMEOUT 600
 #define TRACKBALL_TIMEOUT 5
@@ -223,21 +219,10 @@ void pointing_device_task() {
                     layer_on(_MOUS);
                 }
                 mouse_auto_layer_timer = timer_read() | 1;
-#ifndef TRACKBALL_NO_MATH
-                float power = 3;
-                if (mods & MOD_MASK_CTRL) power = 1.8;
-                /* else if (mods & MOD_MASK_ALT) power = 3.2; */
-
-                double newlen = pow(state.vector_length, power);
-
-                x_offset += (newlen * cos(state.angle_rad));
-                y_offset += (newlen * sin(state.angle_rad));
-#else
                 uint8_t scale = 3;
                 if (mods & MOD_MASK_CTRL) scale = 2;
                 x_offset += state.x * state.x * SIGN(state.x) * scale;
                 y_offset += state.y * state.y * SIGN(state.y) * scale;
-#endif
 
             }
         }

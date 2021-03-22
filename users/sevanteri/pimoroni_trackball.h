@@ -39,7 +39,7 @@ typedef struct {
     int16_t y;
     bool button_down;
     bool button_triggered;
-#ifndef TRACKBALL_NO_MATH
+#ifdef TRACKBALL_WITH_MATH
     double vector_length;
     double angle_rad;
     int8_t raw_x;
