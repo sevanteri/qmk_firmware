@@ -103,13 +103,12 @@ void* await_operator(uint16_t oper, void* ret) {
 }
 
 void* leader_g(uint16_t keycode) {
+    uint8_t mods = get_mods();
     switch (keycode) {
         case KC_S:
             enable_xcase_with(FI_UNDS);
-            break;
-        case S(KC_S):
-            enable_caps_word();
-            enable_xcase_with(FI_UNDS);
+            if (mods & MOD_MASK_SHIFT)
+                enable_caps_word();
             break;
 
         case KC_C:
