@@ -2,6 +2,8 @@
 #include "sevanteri.h"
 #include "casemodes.h"
 
+#define MODS (get_mods() | get_oneshot_mods())
+
 #define INSERT NULL
 #define NORMAL leader_start_func
 
@@ -103,11 +105,10 @@ void* await_operator(uint16_t oper, void* ret) {
 }
 
 void* leader_g(uint16_t keycode) {
-    uint8_t mods = get_mods();
     switch (keycode) {
         case KC_S:
             enable_xcase_with(FI_UNDS);
-            if (mods & MOD_MASK_SHIFT)
+            if (MODS & MOD_MASK_SHIFT)
                 enable_caps_word();
             break;
 
@@ -119,10 +120,10 @@ void* leader_g(uint16_t keycode) {
 }
 
 void* leader_start_func(uint16_t keycode) {
-    uint8_t mods = get_mods();
-    if (mods & MOD_MASK_SHIFT) {
+    if (MODS & MOD_MASK_SHIFT) {
         keycode = LSFT(keycode);
         del_mods(MOD_MASK_SHIFT);
+        del_oneshot_mods(MOD_MASK_SHIFT);
     }
 
     switch (keycode) {
