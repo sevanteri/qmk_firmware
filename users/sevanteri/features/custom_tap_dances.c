@@ -15,16 +15,25 @@
  */
 
 
-// merge/cherry-pick this first: https://github.com/sevanteri/qmk_firmware/commit/861cbd20303f5d93537a7904879a3f9f7e1ea5c5
+/* ALARM! HÄLYTYS! Some of these require modifications to tap dance processing
+ * to handle tap releases in addition to handling tap presses.
+ * The modifications can be found at https://github.com/sevanteri/qmk_firmware/commit/861cbd20303f5d93537a7904879a3f9f7e1ea5c5
+ *
+ * The changes are not big and should be easy to `git cherry-pick`.
+ * */
+
 
 #include QMK_KEYBOARD_H
 #include "custom_tap_dances.h"
 
+// common {{{
 void tap_release(qk_tap_dance_state_t* state, void* user_data) {
     // immediately finish TD on first release.
     state->finished = true;
 }
+// }}}
 
+// mod taps {{{
 void mt_fin(qk_tap_dance_state_t* state, void* user_data) {
     // TAPPING_TERM has passed, register mods.
     mod_tap_t *data = (mod_tap_t*)user_data;
@@ -43,8 +52,8 @@ void mt_reset(qk_tap_dance_state_t* state, void* user_data) {
         tap_code16(data->keycode);
     }
 }
-
-
+// }}}
+// layer taps {{{
 void lt_fin(qk_tap_dance_state_t* state, void* user_data) {
     // TAPPING_TERM has passed, activate layer.
     layer_tap_t *data = (layer_tap_t*)user_data;
@@ -63,8 +72,8 @@ void lt_reset(qk_tap_dance_state_t* state, void* user_data) {
         tap_code16(data->keycode);
     }
 }
-
-
+// }}}
+// tap hold release {{{
 void thr_fin(qk_tap_dance_state_t* state, void* user_data) {
     tap_hold_release_t *data = (tap_hold_release_t*)user_data;
     if (state->pressed) {
@@ -81,3 +90,29 @@ void thr_reset(qk_tap_dance_state_t* state, void* user_data) {
         tap_code16(data->keycode);
     }
 }
+// }}}
+// sentence end {{{
+void sentence_end_tap(qk_tap_dance_state_t *state, void *user_data) {
+    tap_code16(((sentence_end_key*)user_data)->keycode);
+}
+void sentence_end_fin(qk_tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        // Double tapping produces
+        // "<key> <one-shot-shift>" i.e. dot, space and capitalize next letter.
+        // This helps to quickly end a sentence and begin another one
+        // without having to hit shift.
+        case 2:
+            /* Check that Shift is inactive */
+            if (!(get_mods() & MOD_MASK_SHIFT)) {
+                tap_code(KC_BSPC);
+                tap_code(KC_SPC);
+                /* Internal code of OSM(MOD_LSFT) */
+                set_oneshot_mods(MOD_LSFT | get_oneshot_mods());
+            }
+            break;
+    }
+};
+
+
+
+
