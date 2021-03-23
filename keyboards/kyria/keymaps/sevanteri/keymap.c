@@ -20,6 +20,7 @@
 #include "keymap_finnish.h"
 
 #ifdef PIMORONI_TRACKBALL_ENABLE
+#include "leader.h"
 #include "pointing_device.h"
 #include "pimoroni_trackball.h"
 # if defined(RAW_ENABLE)
@@ -201,7 +202,7 @@ void pointing_device_task() {
                     trackball_set_hsv(rgb_hue, rgb_sat, rgb_brightness);
                 }
 
-            } else if (layer_state_is(_FUNC)) {
+            } else if (layer_state_is(_FUNC) || is_leading()) {
                 h_offset += state.x;
                 v_offset -= state.y;
 
