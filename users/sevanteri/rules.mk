@@ -15,7 +15,8 @@ GRAVE_ESC_ENABLE = no
 
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-    SRC += tapdance.c
+    SRC += features/custom_tap_dances.c \
+           tap_dance_config.c
 endif
 ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
     SRC += features/pimoroni_trackball.c

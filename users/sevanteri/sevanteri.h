@@ -1,5 +1,6 @@
 #pragma once
 #include "keymap_finnish.h"
+#include "tap_dance_config.h"
 
 enum customKeycodes {
     PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -45,7 +46,8 @@ extern uint8_t tb_brightness;
 #define  MY_THUL2  MO(_SYMB)
 
 // right thumb keys
-#define  MY_THR1  LT(_FUNC, KC_ENT)
+/* #define  MY_THR1  LT(_FUNC, KC_ENT) */
+#define  MY_THR1  TD(TD_LEADER_ENTER)
 #define  MY_THR2  OSM(MOD_LSFT)
 #define  MY_THR3  MO(_SYMB)
 #define  MY_THR4  RALT_T(KC_INS)
@@ -94,25 +96,6 @@ extern uint8_t tb_brightness;
 #define  MY_RSFT  KC_RSFT
 //}}}
 
-#ifdef TAP_DANCE_ENABLE
-// tap dances {{{
-enum tapdance_buttons {
-    TD_HOME_END = 0,
-    TD_PSCR_INS,
-    TD_HOME_END_MOD,
-    TD_SEEND_DOT,
-    TD_SEEND_QUES,
-    TD_SEEND_EXLM,
-
-    TD_FUNC_HASH,
-    TD_LCTL_SLASH,
-    TD_LGUI_RABK,
-};
-#define HOMEND TD(TD_HOME_END)
-#define PSCRINS TD(TD_PSCR_INS)
-#define TD_HEMD TD(TD_HOME_END_MOD)
-// }}}
-#endif
 
 #include "action_tapping.h"
 void trigger_tapping(void);
