@@ -42,7 +42,8 @@ bool get_combo_must_tap(uint16_t combo_idx, combo_t* combo) { // {{{
 // custom combo terms {{{
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
 
-    if (index > C_VERT_PLACEHOLDER) return 100;
+    // ctrl6 is the first vertical combo
+    if (index >= C_CTRLSIX) return 100;
 
 
     if (KEYCODE_IS_MOD(combo->keycode)) return COMBO_HOLD_TERM;
