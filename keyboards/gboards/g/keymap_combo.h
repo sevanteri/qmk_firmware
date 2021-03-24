@@ -23,11 +23,9 @@
 #undef COMB
 #undef SUBS
 #undef TOGG
-#undef COMM
 #define COMB K_ENUM
 #define SUBS A_ENUM
 #define TOGG A_ENUM
-#define COMM(name, ...) name,
 enum combos {
 #include "combos.def"
     COMBO_LENGTH
@@ -39,11 +37,9 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 #undef COMB
 #undef SUBS
 #undef TOGG
-#undef COMM
 #define COMB K_DATA
 #define SUBS A_DATA
 #define TOGG A_DATA
-#define COMM BLANK
 #include "combos.def"
 #undef COMB
 #undef SUBS

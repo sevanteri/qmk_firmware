@@ -133,7 +133,6 @@ COMB(C_ALTN0,            LALT(KC_0),    MY_QUOT, MY_P)
 //}}}
 
 // vertical combos {{{
-COMM(C_VERT_PLACEHOLDER)
 
 // right hand
 COMB(C_CTRLSIX,   LCTL(KC_6),     MY_H,  MY_Y)
@@ -150,7 +149,7 @@ COMB(C_DIAERESIS,  FI_DIAE,  MY_G,  MY_T)
 COMB(C_SECT,       FI_SECT,  MY_A,  MY_Q)
 
 // left hand thumb
-COMB(C_CODEBLK,  CODEBLK,  MY_THL2, MY_THUL2)
+SUBS(C_CODEBLK,  "``",  MY_THL2, MY_THUL2)
 
 
 // }}}
