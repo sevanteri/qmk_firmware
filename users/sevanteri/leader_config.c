@@ -225,3 +225,7 @@ void* leader_start_func(uint16_t keycode) {
     }
     return resolve_pending_operator();
 }
+
+void leader_end(void) {
+    reset();
+}
