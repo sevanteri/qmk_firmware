@@ -72,10 +72,20 @@ void *leader_start_func(uint16_t keycode) {
 bool is_leading(void) {
     return leading;
 }
+
+// Hook to run custom code when leader mode starts
+__attribute__ ((weak))
+void leader_start(void) {}
+
+// Hook to run custom code when leader mode ends
+__attribute__ ((weak))
+void leader_end(void) {}
+
 // Start leader sequence
 void start_leading(void) {
     leading = true;
     leader_func = leader_start_func;
+    leader_start();
 #ifdef LEADER_DISPLAY_STR
     memset(leader_display, 0, sizeof(leader_display));
     leader_display[0] = 'L';
@@ -89,6 +99,7 @@ void start_leading(void) {
 void stop_leading(void) {
     leading = false;
     leader_func = NULL;
+    leader_end();
 #ifdef LEADER_DISPLAY_STR
     leader_display[leader_display_size] = ' ';
 #endif
