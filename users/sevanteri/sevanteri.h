@@ -46,8 +46,9 @@ extern uint8_t tb_brightness;
 #define  MY_THUL2  MO(_SYMB)
 
 // right thumb keys
-#define  MY_THR1  LT(_FUNC, KC_ENT)
+/* #define  MY_THR1  LT(_FUNC, KC_ENT) */
 /* #define  MY_THR1  TD(TD_LEADER_ENTER) */
+#define  MY_THR1  TD(TD_ENTER_FUNCL)
 #define  MY_THR2  OSM(MOD_LSFT)
 #define  MY_THR3  MO(_SYMB)
 #define  MY_THR4  RALT_T(KC_INS)
