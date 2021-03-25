@@ -155,6 +155,7 @@ static int16_t x_offset = 0;
 static int16_t y_offset = 0;
 static int16_t v_offset = 0;
 static int16_t h_offset = 0;
+static int16_t tab_offset = 0;
 static int16_t tb_timer = 0;
 void pointing_device_task() {
     report_mouse_t mouse = pointing_device_get_report();
@@ -205,7 +206,8 @@ void pointing_device_task() {
             } else if (layer_state_is(_FUNC) || is_leading()) {
                 h_offset += state.x;
                 v_offset -= state.y;
-
+            } else if (layer_state_is(_SYMB)) {
+                tab_offset += state.y;
 #if defined(RAW_ENABLE)
             } else if (layer_state_is(SYMB)) {
                 // set volume
@@ -245,6 +247,16 @@ void pointing_device_task() {
         pointing_device_set_report(mouse);
         pointing_device_send();
     }
+
+#define TAB_LIMIT 10
+    if (tab_offset > TAB_LIMIT) {
+        tap_code16(CTRLTAB);
+        tab_offset -= TAB_LIMIT;
+    } else if (tab_offset < -TAB_LIMIT) {
+        tap_code16(CSFTTAB);
+        tab_offset += TAB_LIMIT;
+    }
+
 }
 
 void matrix_scan_user(void) {//{{{
