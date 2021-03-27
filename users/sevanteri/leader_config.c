@@ -66,7 +66,7 @@ void tap(uint16_t kc) {
     home; vdn; end; \
 )
 
-#define X tap(KC_BSPC)
+#define _X tap(KC_BSPC)
 #define x tap(KC_DEL)
 
 void reset(void) {
@@ -220,7 +220,7 @@ void* leader_start_func(uint16_t keycode) {
         case KC_X:
             x; TO_NORMAL;
         case S(KC_X):
-            X; TO_NORMAL;
+            _X; TO_NORMAL;
 
     }
     return resolve_pending_operator();
