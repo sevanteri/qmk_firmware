@@ -22,7 +22,7 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 static uint16_t code_timer;
 uint8_t tb_brightness = 42;
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     const bool pressed = record->event.pressed;
     switch (keycode) {
         case CODEBLK:
@@ -55,27 +55,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
             /* trackball_set_brightness(0); */
             return true;
 #endif
-        case MY_VIM_V:
-            if (!pressed) break;
-            tap_code(KC_HOME);
-            tap_code16(LSFT(KC_END));
-            return false;
-        case MY_VIM_S:
-            if (!pressed) break;
-            tap_code(KC_HOME);
-            tap_code16(LSFT(KC_END));
-            tap_code(KC_BSPC);
-            return false;
-        case MY_VIM_C:
-            if (!pressed) break;
-            tap_code16(LSFT(KC_END));
-            tap_code(KC_BSPC);
-            return false;
-        case MY_VIM_CW:
-            if (!pressed) break;
-            tap_code16(LCTL(LSFT(KC_RIGHT)));
-            tap_code(KC_BSPC);
-            return false;
         case MY_PARENSBOTH:
             if (!pressed) break;
             tap_code16(FI_LPRN);
@@ -150,11 +129,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { // {{{
     }
 #endif
 
-    if (!process_case_modes(keycode, record)) {
+    if (!(
+        process_case_modes(keycode, record) &&
+        process_leader(keycode, record) &&
+        process_record_keymap(keycode, record) &&
+        true))
+    {
         return false;
     }
-    if (!process_leader(keycode, record)) {
-        return false;
-    }
-    return process_record_keymap(keycode, record);
-} // }}}
+
+    return true;
+}
