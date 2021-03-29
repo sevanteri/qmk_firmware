@@ -19,5 +19,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LCTL_SLASH] = ACTION_TAP_DANCE_MOD_TAP(MOD_LCTL, FI_SLSH),
     [TD_LGUI_RABK] = ACTION_TAP_DANCE_MOD_TAP(MOD_LGUI, FI_RABK),
     [TD_ENTER_FUNCL] = ACTION_TAP_DANCE_LAYER_TAP(_FUNC, KC_ENTER),
-    /* [TD_LEADER_ENTER] = ACTION_TAP_DANCE_TAP_HOLD_RELEASE(KC_ENTER, start_leading, stop_leading), */
+    [TD_LEADER_ENTER] = ACTION_TAP_DANCE_TAP_HOLD_RELEASE(KC_ENTER, start_leading, stop_leading),
 };
