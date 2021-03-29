@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "sevanteri.h"
 #include "casemodes.h"
+#include "pimoroni_trackball.h"
 
 #define MODS (get_mods() | get_oneshot_mods())
 
@@ -17,7 +18,7 @@ uint16_t pending_operator = 0;
 // the mode to return to after the pending operator
 void* return_to = NORMAL;
 
-void tap(uint16_t kc) {
+static void tap(uint16_t kc) {
     if (select_on) kc = S(kc);
     tap_code16(kc);
 }
@@ -69,7 +70,7 @@ void tap(uint16_t kc) {
 #define _X tap(KC_BSPC)
 #define x tap(KC_DEL)
 
-void reset(void) {
+static void reset(void) {
     if (select_on) {
         vup;
     }
@@ -78,33 +79,33 @@ void reset(void) {
     return_to = NORMAL;
 }
 
-void* reset_to(void* f) {
+static void* reset_to(void* f) {
     reset();
     return f;
 }
 
-void* resolve_pending_operator(void) {
+static void* resolve_pending_operator(void) {
     if (!pending_operator) return NORMAL;
 
     tap(pending_operator);
     return reset_to(return_to);
 }
 
-void* leader_text_obj(uint16_t keycode) {
+static void* leader_text_obj(uint16_t keycode) {
     switch (keycode) {
         case KC_W: vup; e; v(b); break;
     }
     return resolve_pending_operator();
 }
 
-void* await_operator(uint16_t oper, void* ret) {
+static void* await_operator(uint16_t oper, void* ret) {
     pending_operator = KC_BSPC;
     return_to = ret;
     vdn;
     return NORMAL;
 }
 
-void* leader_g(uint16_t keycode) {
+static void* leader_g(uint16_t keycode) {
     switch (keycode) {
         case KC_S:
             enable_xcase_with(FI_UNDS);
@@ -124,6 +125,11 @@ void* leader_start_func(uint16_t keycode) {
         keycode = LSFT(keycode);
         del_mods(MOD_MASK_SHIFT);
         del_oneshot_mods(MOD_MASK_SHIFT);
+    }
+    if (MODS & MOD_MASK_CTRL) {
+        keycode = LCTL(keycode);
+        del_mods(MOD_MASK_CTRL);
+        del_oneshot_mods(MOD_MASK_CTRL);
     }
 
     switch (keycode) {
@@ -153,6 +159,16 @@ void* leader_start_func(uint16_t keycode) {
         case KC_0:
             home;
             break;
+        case C(KC_U):
+        case C(KC_Y):
+        case C(KC_B):
+            tap_code16(KC_PGUP);
+            TO_NORMAL;
+        case C(KC_E):
+        case C(KC_F):
+        case C(KC_D):
+            tap_code16(KC_PGDOWN);
+            TO_NORMAL;
 
         // }}}
 
@@ -222,10 +238,21 @@ void* leader_start_func(uint16_t keycode) {
         case S(KC_X):
             _X; TO_NORMAL;
 
+        case MY_QUOT:
+            tap_code16(KC_VOLU); TO_NORMAL;
+        case FI_ADIA:
+            tap_code16(KC_VOLD); TO_NORMAL;
+        case MY_RSFT:
+            tap_code16(KC_MPLY); TO_NORMAL;
     }
     return resolve_pending_operator();
 }
 
 void leader_end(void) {
     reset();
+    trackball_set_hsv(rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val());
+}
+
+void leader_start(void) {
+    trackball_set_rgbw(0, rgblight_get_val(), 0, 0);
 }
