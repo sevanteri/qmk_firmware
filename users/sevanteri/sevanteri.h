@@ -14,7 +14,7 @@ enum customKeycodes {
 
 enum my_layers {
     _BASE = 0, // default layer
-    _SYMB, // numbers and symbols
+    _NUM, // numbers and f-keys
     _MOUS,
     _GAME, // gaming layer
     _FUNC, // function layer
@@ -36,14 +36,14 @@ extern uint8_t tb_brightness;
 #define  MY_THL4  KC_MS_BTN1
 
 #define  MY_THUL1  MO(_FUNC)
-#define  MY_THUL2  MO(_SYMB)
+#define  MY_THUL2  MO(_NUM)
 
 // right thumb keys
 /* #define  MY_THR1  LT(_FUNC, KC_ENT) */
 /* #define  MY_THR1  TD(TD_LEADER_ENTER) */
 #define  MY_THR1  TD(TD_ENTER_FUNCL)
 #define  MY_THR2  OSM(MOD_LSFT)
-#define  MY_THR3  MO(_SYMB)
+#define  MY_THR3  MO(_NUM)
 #define  MY_THR4  RALT_T(KC_INS)
 
 #define  MY_THUR1  KC_SPACE

@@ -54,15 +54,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _________________FUNCL_R3__________________, _______,
         _______, _______, _______, _______, MO(_STUF)
     ), // }}}
-    [_SYMB] = LAYOUT_stack_wrapper( // {{{
-        _SYMB_L1_________________,
-        _SYMB_L2_________________,
-        _SYMB_L3_________________, _______, _______,
-                                   _______, _______, ___SYMB_THUMBLN_,
+    [_NUM] = LAYOUT_stack_wrapper( // {{{
+        __NUM_L1_________________,
+        __NUM_L2_________________,
+        __NUM_L3_________________, _______, _______,
+                                   _______, _______, ____NUM_THUMBLN_,
 
-                          _________________SYMB_R1_,
-                          _________________SYMB_R2_,
-        _______, _______, _________________SYMB_R3_,
+                          __________________NUM_R1_,
+                          __________________NUM_R2_,
+        _______, _______, __________________NUM_R3_,
         _______, _______, _______, _______, _______
     ), // }}}
     [_STUF] = LAYOUT_stack_wrapper( // {{{
@@ -206,10 +206,10 @@ void pointing_device_task() {
             } else if (layer_state_is(_FUNC) || is_leading()) {
                 h_offset += state.x;
                 v_offset -= state.y;
-            } else if (layer_state_is(_SYMB)) {
+            } else if (layer_state_is(_NUM)) {
                 tab_offset += state.y;
 #if defined(RAW_ENABLE)
-            } else if (layer_state_is(SYMB)) {
+            } else if (layer_state_is(_NUM)) {
                 // set volume
                 uint8_t msg[RAW_EPSIZE];
                 sprintf((char *)msg, "VOL:%3d ", state.y);
@@ -282,7 +282,7 @@ static uint8_t last_layer = _BASE;
 layer_state_t layer_state_set_user(layer_state_t state) {//{{{
     uint8_t layer = get_highest_layer(state);
     switch(layer) {
-        case _SYMB:
+        case _NUM:
             trackball_set_rgbw(0, 0, rgb_brightness, 0);
             // rgblight_setrgb(0, 0, rgb_brightness);
             break;

@@ -31,7 +31,7 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
         state->target_lcd_color = LCD_COLOR(0, saturation, 0xFF);
         state->layer_text = "Func";
     }
-    else if (state->status.layer & 1<<_SYMB) {
+    else if (state->status.layer & 1<<_NUM) {
         state->target_lcd_color = LCD_COLOR(128, saturation, 0xFF);
         state->layer_text = "Symbols";
     }

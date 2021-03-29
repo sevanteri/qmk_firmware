@@ -196,9 +196,6 @@ static uint8_t last_layer = _BASE;
 layer_state_t layer_state_set_user(layer_state_t state) {/*{{{*/
     uint8_t layer = get_highest_layer(state);
     switch(layer) {
-        case _SYMB:
-            trackball_set_rgbw(0, 0, tb_brightness, 0);
-            break;
         case _FUNC:
             trackball_set_rgbw(0, tb_brightness, 0, 0);
             break;
