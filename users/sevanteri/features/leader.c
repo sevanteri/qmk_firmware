@@ -136,7 +136,7 @@ bool process_leader(uint16_t keycode, const keyrecord_t *record) {
         update_leader_display(keycode);
 #endif
         // update the leader function
-        leader_func = leader_func(keycode);
+        leader_func = (*leader_func)(keycode);
         if (leader_func == NULL) {
             stop_leading();
         }
