@@ -188,13 +188,11 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
 
 uint16_t strip_modtaps(uint16_t keycode, const keyrecord_t *record) {
     // Get the base keycode of a mod or layer tap key
-    switch (keycode) {
-        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
+        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
             // Strip the keycode only if it was tapped.
             if (record->tap.count)
                 return keycode & 0xFF;
-            break;
     }
     return keycode;
 }

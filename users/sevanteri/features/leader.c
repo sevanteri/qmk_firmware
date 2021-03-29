@@ -115,16 +115,12 @@ bool process_leader(uint16_t keycode, const keyrecord_t *record) {
             || pressed // normal keys on press
         ) {
         // Get the base keycode of a mod or layer tap key
-        switch (keycode) {
-            case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-            case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+        if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
+            (keycode >= QK_LAYER_TAP && keycode < QK_LAYER_TAP_MAX)) {
                 // Earlier return if this has not been considered tapped yet
                 if (record->tap.count == 0)
                     return true;
                 keycode = keycode & 0xFF;
-                break;
-            default:
-                break;
         }
         if (keycode > QK_MODS_MAX) {
             // early exit for other special key presses.
