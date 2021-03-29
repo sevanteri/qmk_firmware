@@ -5,15 +5,8 @@
 enum customKeycodes {
     PLACEHOLDER = SAFE_RANGE, // can always be here
     CODEBLK, // `code`
-    TB_B_UP, // Trackball brightness
-    TB_B_DN,
     WORDCAPS, // caps lock for one word
     LEADER,
-    // from combos:
-    MY_VIM_V,
-    MY_VIM_S,
-    MY_VIM_C,
-    MY_VIM_CW,
     MY_PARENSBOTH,
     MY_SQUAREBRACEBOTH,
     MY_CURLYBRACEBOTH,
