@@ -46,11 +46,6 @@
 #define _________________FUNCL_R3__________________   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_MPLY
 
 
-#define _________________MOUS_R1___________________   KC_BTN2, KC_BTN3, _______, _______, _______
-#define _________________MOUS_R2___________________   KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______
-#define _________________MOUS_R3___________________   KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______
-
-
 #define _________________STUFF_L1__________________   _______, _______, EEP_RST, RESET,   _______
 #define _________________STUFF_L2__________________   _______, _______, _______, _______, _______
 #define _________________STUFF_L3__________________   _______, _______, CMB_TOG, _______, _______
@@ -70,17 +65,14 @@
 #define ____QWERTY_R4___    MY_THR3,  MY_THR4
 #define _____NUM_R4_____    _______,  FI_ACUT
 #define ____FUNC_R4_____    _______,  KC_RALT
-#define ____MOUS_R4_____    KC_BTN3,  _______
 
 #define _QWERTY_THUMBLN_    MY_THL3,   MY_THL2,  MY_THL1
 #define ____NUM_THUMBLN_    CODEBLK,   KC_DOT,   _______
 #define ___FUNC_THUMBLN_    _______,   _______,  KC_DEL
-#define ___MOUS_THUMBLN_    _______,   _______,  _______
 
 #define _QWERTY_THUMBRN_    MY_THR1, MY_THR2, MY_THR3
 #define ____NUM_THUMBRN_    _______, _______, _______
 #define ___FUNC_THUMBRN_    _______, _______, _______
-#define ___MOUS_THUMBRN_    KC_BTN1, _______, _______
 
 
 // old ones (ergodox)
@@ -91,4 +83,3 @@
 #define _QWERTY_THUMBR__    MY_THR1, MY_THR2
 #define ____NUM_THUMBR__    _______, _______
 #define ___FUNC_THUMBR__    _______, _______
-#define ___MOUS_THUMBR__    KC_BTN1, KC_BTN2
