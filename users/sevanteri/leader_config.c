@@ -3,6 +3,7 @@
 #include "casemodes.h"
 #include "pimoroni_trackball.h"
 
+static uint8_t mods = 0;
 #define MODS (get_mods() | get_oneshot_mods())
 
 #define INSERT NULL
@@ -74,6 +75,10 @@ static void reset(void) {
     if (select_on) {
         vup;
     }
+    if (mods) {
+        set_mods(mods);
+        mods = 0;
+    }
     select_on = false;
     pending_operator = 0;
     return_to = NORMAL;
@@ -107,6 +112,8 @@ static void* await_operator(uint16_t oper, void* ret) {
 
 static void* leader_g(uint16_t keycode) {
     switch (keycode) {
+        case KC_G:
+            tap_code16(KC_HOME); TO_INSERT;
         case KC_S:
             enable_xcase_with(FI_UNDS);
             if (MODS & MOD_MASK_SHIFT)
@@ -121,6 +128,7 @@ static void* leader_g(uint16_t keycode) {
 }
 
 void* leader_start_func(uint16_t keycode) {
+    mods = get_mods() & MOD_MASK_CS;
     if (MODS & MOD_MASK_SHIFT) {
         keycode = LSFT(keycode);
         del_mods(MOD_MASK_SHIFT);
@@ -141,6 +149,7 @@ void* leader_start_func(uint16_t keycode) {
             TO_NORMAL;
 
         case KC_G:
+        case S(KC_G):
             reset();
             return leader_g;
         // }}}
