@@ -3,8 +3,7 @@
 #include "tap_dance_config.h"
 
 enum customKeycodes {
-    PLACEHOLDER = SAFE_RANGE, // can always be here
-    CODEBLK, // `code`
+    CODEBLK = SAFE_RANGE, // `code`
     WORDCAPS, // caps lock for one word
     LEADER,
     MY_PARENSBOTH,
@@ -21,8 +20,6 @@ enum my_layers {
     _STUF, // reset and maybe some other stuff
 };
 
-__attribute__((unused))
-extern uint8_t tb_brightness;
 
 // other keys
 #define CTRLTAB LCTL(KC_TAB)
@@ -33,7 +30,7 @@ extern uint8_t tb_brightness;
 #define  MY_THL1  LCTL_T(KC_BSPC)
 #define  MY_THL2  LALT_T(KC_SPC)
 #define  MY_THL3  KC_LGUI
-#define  MY_THL4  KC_MS_BTN1
+#define  MY_THL4  LEADER
 
 #define  MY_THUL1  MO(_FUNC)
 #define  MY_THUL2  MO(_NUM)
@@ -49,7 +46,7 @@ extern uint8_t tb_brightness;
 #define  MY_THUR1  KC_SPACE
 
 // basic alpha keys {{{
-#define  MY_TAB LEADER
+#define  MY_TAB KC_BTN1
 #define  MY_Q  KC_Q
 #define  MY_W  KC_W
 #define  MY_E  KC_E
