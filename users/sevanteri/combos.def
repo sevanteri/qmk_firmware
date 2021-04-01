@@ -65,6 +65,8 @@ COMB(C_PIPE,     RALT(FI_LABK),  MY_X,     MY_Z)
 COMB(C_AT,       RALT(KC_2),     MY_X,     MY_C)
 COMB(C_DOLLAR,   RALT(KC_4),     MY_C,     MY_V)
 
+COMB(C_MOUS3,   KC_BTN3,   KC_BTN1, KC_BTN2)
+
 //}}}
 
 // both hands {{{
@@ -79,7 +81,7 @@ COMB(C_PARENSBOTH,       MY_PARENSBOTH,       MY_S,  MY_D,  MY_F,  MY_J,  MY_K, 
 
 //}}}
 
-// string combos, always double handed: thumb2 plus letter from other hand {{{
+// string combos, double handed: thumb2 plus letter from other hand {{{
 
 SUBS(C_GMAIL,  "pete.sevander@gmail.com",  MY_THR2,  MY_G)
 

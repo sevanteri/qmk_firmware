@@ -76,17 +76,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _________________STUFF_L3__________________, _______,
         __________________________________, MO(_STUF)
     ), // }}}
-    [_MOUS] = LAYOUT_stack_wrapper( // {{{
-        _______, ___________________________________________,
-        _______, _______, _______, _______, KC_BTN1, KC_BTN3,
-        _______, _______, _______, _______, KC_BTN2, _______, _______, _______,
-                                   _______, _______, _______, _______, _______,
-
-                          ___________________________________________, _______,
-                          ___________________________________________, _______,
-        _______, _______, ___________________________________________, _______,
-        _______, _______, _______, _______, _______
-    ), // }}}
     /* [_LAYERINDEX] = LAYOUT_stack_wrapper( // {{{ */
     /*     _______, ___________________________________________, */
     /*     _______, ___________________________________________, */
@@ -107,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #include "quantum/quantum.h"
 #include "i2c_master.h"
 
-static int16_t mouse_auto_layer_timer = 0;
+/* static int16_t mouse_auto_layer_timer = 0; */
 #define MOUSE_TIMEOUT 600
 #define TRACKBALL_TIMEOUT 5
 
@@ -218,10 +207,10 @@ void pointing_device_task() {
 
             } else if ((state.x || state.y) && !state.button_down) {
 
-                if (!mouse_auto_layer_timer && !layer_state_is(_FUNC)) {
-                    layer_on(_MOUS);
-                }
-                mouse_auto_layer_timer = timer_read() | 1;
+                /* if (!mouse_auto_layer_timer && !layer_state_is(_FUNC)) { */
+                /*     layer_on(_MOUS); */
+                /* } */
+                /* mouse_auto_layer_timer = timer_read() | 1; */
                 uint8_t scale = 3;
                 if (mods & MOD_MASK_CTRL) scale = 2;
                 x_offset += state.x * state.x * SIGN(state.x) * scale;
@@ -260,21 +249,21 @@ void pointing_device_task() {
 }
 
 void matrix_scan_user(void) {//{{{
-    if (mouse_auto_layer_timer && timer_elapsed(mouse_auto_layer_timer) > MOUSE_TIMEOUT) {
-        report_mouse_t rep = pointing_device_get_report();
-        if (rep.buttons) { return; }
-        layer_off(_MOUS);
-        mouse_auto_layer_timer = 0;
-    }
+    /* if (mouse_auto_layer_timer && timer_elapsed(mouse_auto_layer_timer) > MOUSE_TIMEOUT) { */
+    /*     report_mouse_t rep = pointing_device_get_report(); */
+    /*     if (rep.buttons) { return; } */
+    /*     layer_off(_MOUS); */
+    /*     mouse_auto_layer_timer = 0; */
+    /* } */
 }//}}}
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {//{{{
-    if ((keycode < KC_BTN1 || keycode > KC_BTN5)
-            && layer_state_is(_MOUS)
-            && record->event.pressed) {
-        layer_off(_MOUS);
-        mouse_auto_layer_timer = 0;
-    }
+    /* if ((keycode < KC_BTN1 || keycode > KC_BTN5) */
+    /*         && layer_state_is(_MOUS) */
+    /*         && record->event.pressed) { */
+    /*     layer_off(_MOUS); */
+    /*     mouse_auto_layer_timer = 0; */
+    /* } */
     return true;
 }//}}}
 
