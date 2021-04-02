@@ -13,9 +13,9 @@ enum customKeycodes {
 
 enum my_layers {
     _BASE = 0, // default layer
+    _GAME, // gaming layer
     _NUM, // numbers and f-keys
     _MOUS,
-    _GAME, // gaming layer
     _FUNC, // function layer
     _STUF, // reset and maybe some other stuff
 };
@@ -33,7 +33,7 @@ enum my_layers {
 #define  MY_THL4  LEADER
 
 #define  MY_THUL1  MO(_FUNC)
-#define  MY_THUL2  MO(_NUM)
+#define  MY_THUL2  TG(_GAME)
 
 // right thumb keys
 /* #define  MY_THR1  LT(_FUNC, KC_ENT) */

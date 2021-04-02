@@ -76,6 +76,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _________________STUFF_L3__________________, _______,
         __________________________________, MO(_STUF)
     ), // }}}
+    [_GAME] = LAYOUT_stack_wrapper( // {{{
+        KC_ESC,  KC_T,     KC_Q,  KC_W,  KC_E,  KC_R,
+        KC_TAB,  KC_LSFT,  KC_A,  KC_S,  KC_D,  KC_F,
+        KC_G,    KC_LALT,  KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,  KC_BSPC,
+                                  KC_I,  KC_J,  LT(_NUM, KC_M),  KC_SPC,  KC_LCTL,
+
+                          ___________________________________________, _______,
+                          ___________________________________________, _______,
+        TG(_GAME), _______, ___________________________________________, _______,
+        _______, _______, _______, _______, KC_RGUI
+    ), // }}}
     /* [_LAYERINDEX] = LAYOUT_stack_wrapper( // {{{ */
     /*     _______, ___________________________________________, */
     /*     _______, ___________________________________________, */
@@ -115,7 +126,7 @@ void keyboard_post_init_user(void) {
 }
 
 void eeconfig_init_user(void) {
-  rgblight_sethsv(0, 255, 5);
+  rgblight_sethsv(0, 255, 42);
 }
 
 void matrix_init_user() {
@@ -123,8 +134,8 @@ void matrix_init_user() {
 }
 
 void suspend_power_down_user(void) {
-    trackball_set_brightness(0);
-    trackball_sleep();
+    /* trackball_set_brightness(0); */
+    /* trackball_sleep(); */
 }
 
 void update_member(int8_t* member, int16_t* offset) {//{{{
@@ -275,6 +286,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {//{{{
             trackball_set_rgbw(0, 0, rgb_brightness, 0);
             // rgblight_setrgb(0, 0, rgb_brightness);
             break;
+        case _GAME:
+            trackball_set_rgbw(rgb_brightness, rgb_brightness, rgb_brightness, 0);
+            break;
         case _FUNC:
             trackball_set_rgbw(0, rgb_brightness, 0, 0);
             // rgblight_setrgb(0, rgb_brightness, 0);
@@ -306,9 +320,21 @@ layer_state_t layer_state_set_user(layer_state_t state) {//{{{
 
     }
 
+
+    if (layer_state_cmp(state, _GAME)) {
+        combo_disable();
+    } else if (last_layer == _GAME) {
+        combo_enable();
+    }
+
+
     last_layer = layer;
     return state;
 }//}}}
 
 //}}}
 #endif
+
+/* void bootmagic_lite(void) { */
+/*     eeconfig_init(); */
+/* } */

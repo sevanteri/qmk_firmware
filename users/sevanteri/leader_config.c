@@ -113,7 +113,10 @@ static void* await_operator(uint16_t oper, void* ret) {
 static void* leader_g(uint16_t keycode) {
     switch (keycode) {
         case KC_G:
-            tap_code16(KC_HOME); TO_INSERT;
+            tap_code16(KC_HOME); TO_NORMAL;
+        case FI_QUOT:
+            layer_on(_GAME);
+            break;
         case KC_S:
             enable_xcase_with(FI_UNDS);
             if (MODS & MOD_MASK_SHIFT)
