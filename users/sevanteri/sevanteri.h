@@ -3,12 +3,19 @@
 #include "tap_dance_config.h"
 
 enum customKeycodes {
+    // custom tap-hold keys
+    LEADER_ENTER = QK_LAYER_TAP + 1,
+    FUNC_HASH,
+    LCTL_SLASH,
+    LGUI_RABK,
+
     CODEBLK = SAFE_RANGE, // `code`
     WORDCAPS, // caps lock for one word
     LEADER,
     MY_PARENSBOTH,
     MY_SQUAREBRACEBOTH,
     MY_CURLYBRACEBOTH,
+
 };
 
 enum my_layers {
@@ -30,15 +37,16 @@ enum my_layers {
 #define  MY_THL1  LCTL_T(KC_BSPC)
 #define  MY_THL2  LALT_T(KC_SPC)
 #define  MY_THL3  KC_LGUI
-#define  MY_THL4  LEADER
+#define  MY_THL4  KC_BTN2
 
 #define  MY_THUL1  MO(_FUNC)
 #define  MY_THUL2  TG(_GAME)
 
 // right thumb keys
 /* #define  MY_THR1  LT(_FUNC, KC_ENT) */
-#define  MY_THR1  TD(TD_LEADER_ENTER)
+/* #define  MY_THR1  TD(TD_LEADER_ENTER) */
 /* #define  MY_THR1  TD(TD_ENTER_FUNCL) */
+#define  MY_THR1  LEADER_ENTER
 #define  MY_THR2  OSM(MOD_LSFT)
 #define  MY_THR3  MO(_NUM)
 #define  MY_THR4  RALT_T(KC_INS)

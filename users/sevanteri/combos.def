@@ -8,11 +8,11 @@ COMB(C_ACUT,      FI_ACUT,        MY_I,  MY_L)
 // right hand home row {{{
 
 COMB(C_LESSTHAN,     FI_LABK,           MY_H,  MY_J)
-COMB(C_GREATERTHAN,  TD(TD_LGUI_RABK),  MY_K,  MY_L)
+COMB(C_GREATERTHAN,  LGUI_RABK,  MY_K,  MY_L)
 /* COMB(C_GREATERTHAN,  FI_RABK,           MY_K,  MY_L) */
 
 /* COMB(C_SLASH,      LSFT(KC_7),         MY_J,     MY_K) */
-COMB(C_SLASH,      TD(TD_LCTL_SLASH),  MY_J,     MY_K)
+COMB(C_SLASH,      LCTL_SLASH,  MY_J,     MY_K)
 COMB(C_BACKSLASH,  RALT(FI_PLUS),      MY_THR2,  MY_J,  MY_K)
 
 
@@ -44,7 +44,7 @@ SUBS(C_TILDE,   "~~",   MY_R, MY_T)
 // left hand home row {{{
 COMB(C_EXCLAMATIONP,  FI_EXLM,  MY_A,  MY_S)
 COMB(C_DQUOTES,       FI_DQUO,  MY_S,  MY_D)
-COMB(C_HASH,          TD(TD_FUNC_HASH),  MY_D,  MY_F)
+COMB(C_HASH,          FUNC_HASH,  MY_D,  MY_F)
 COMB(C_PERCENTG,      LSFT(KC_5),  MY_F,  MY_G)
 
 COMB(C_SQUAREBRACELEFT,  RALT(KC_8),  MY_X,  MY_V)
@@ -71,7 +71,7 @@ COMB(C_MOUS3,   KC_BTN3,   KC_BTN1, KC_BTN2)
 
 // both hands {{{
 COMB(C_SLEEP,  KC_SLEP,  MY_Q,     MY_P)
-COMB(C_WAKE,   KC_WAKE,  MY_W,     MY_O)
+/* COMB(C_WAKE,   KC_WAKE,  MY_W,     MY_O) */
 
 COMB(C_RESET,RESET,    MY_V, MY_B, MY_N, MY_M)
 

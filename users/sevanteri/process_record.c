@@ -14,7 +14,21 @@
 #include "pointing_device.h"
 #endif
 
-
+#define TAP_OR_HOLD(tap_, hold_, release_) \
+    do { \
+        if (record->tap.count) { \
+            if (record->event.pressed) { \
+                register_code16(tap_); \
+            } else { \
+                unregister_code16(tap_); \
+            } \
+        } else if (record->event.pressed) { \
+            hold_; \
+        } else { \
+            release_; \
+        } \
+    } while(0); \
+    return false
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
@@ -95,6 +109,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 start_leading();
             }
             return false;
+        case LEADER_ENTER:
+            TAP_OR_HOLD(KC_ENT, start_leading(), stop_leading());
+        case FUNC_HASH:
+            TAP_OR_HOLD(FI_HASH, layer_on(_FUNC), layer_off(_FUNC));
+        case LCTL_SLASH:
+            TAP_OR_HOLD(FI_SLSH,
+                register_mods(MOD_BIT(KC_LCTL)),
+                unregister_mods(MOD_BIT(KC_LCTL)));
+        case LGUI_RABK:
+            TAP_OR_HOLD(FI_RABK,
+                register_mods(MOD_BIT(KC_LGUI)),
+                unregister_mods(MOD_BIT(KC_LGUI)));
     }
 
 #ifdef POINTING_DEVICE_ENABLE
