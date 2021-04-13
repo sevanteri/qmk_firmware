@@ -27,8 +27,7 @@
         } else { \
             release_; \
         } \
-    } while(0); \
-    return false
+    } while(0)
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
@@ -111,16 +110,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case LEADER_ENTER:
             TAP_OR_HOLD(KC_ENT, start_leading(), stop_leading());
+            return false;
         case FUNC_HASH:
             TAP_OR_HOLD(FI_HASH, layer_on(_FUNC), layer_off(_FUNC));
+            return false;
         case LCTL_SLASH:
             TAP_OR_HOLD(FI_SLSH,
                 register_mods(MOD_BIT(KC_LCTL)),
                 unregister_mods(MOD_BIT(KC_LCTL)));
+            return false;
         case LGUI_RABK:
             TAP_OR_HOLD(FI_RABK,
                 register_mods(MOD_BIT(KC_LGUI)),
                 unregister_mods(MOD_BIT(KC_LGUI)));
+            return false;
     }
 
 #ifdef POINTING_DEVICE_ENABLE
