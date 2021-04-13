@@ -13,6 +13,9 @@ VPATH += keyboards/gboards/ \
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 
+TAP_DANCE_ENABLE = no
+LEADER_ENABLE = no
+COMBO_ENABLE = yes
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += features/custom_tap_dances.c \
