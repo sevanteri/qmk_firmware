@@ -14,11 +14,13 @@
 #include "pointing_device.h"
 #endif
 
+// see https://github.com/qmk/qmk_firmware/issues/12445 for explanation for `clear_weak_mods`
 #define TAP_OR_HOLD(tap_, hold_, release_) \
     do { \
         if (record->tap.count) { \
             if (record->event.pressed) { \
                 register_code16(tap_); \
+                clear_weak_mods(); \
             } else { \
                 unregister_code16(tap_); \
             } \
