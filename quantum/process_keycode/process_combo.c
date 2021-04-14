@@ -187,6 +187,7 @@ static inline void dump_key_buffer(void) {
 #endif
         }
         record->event.time = 0;
+        clear_weak_mods();
     }
 
     key_buffer_size = 0;
