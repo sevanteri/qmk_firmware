@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _QWERTY_L1_______________,
         _QWERTY_L2_______________,
         _QWERTY_L3_______________, MY_THUL2, MY_THUL1,
-        KC_BTN2, MY_THL4, MY_THL3, MY_THL2,  MY_THL1, 
+        LEADER, MY_THL4, MY_THL3, MY_THL2,  MY_THL1,
 
         /******/ /******/ _______________QWERTY_R1_,
         /******/ /******/ _______________QWERTY_R2_,
@@ -79,8 +79,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_GAME] = LAYOUT_stack_wrapper( // {{{
         KC_ESC,  KC_T,     KC_Q,  KC_W,  KC_E,  KC_R,
         KC_TAB,  KC_LSFT,  KC_A,  KC_S,  KC_D,  KC_F,
-        KC_G,    KC_LALT,  KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,  KC_BSPC,
-                                  KC_I,  KC_J,  LT(_NUM, KC_M),  KC_SPC,  KC_LCTL,
+        KC_G,    KC_LALT,  KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,    LT(_NUM,KC_BSPC),
+        /***/    /***/     /***/  KC_I,  KC_J,  KC_M,  KC_SPC,  KC_LCTL,
 
                           ___________________________________________, _______,
                           ___________________________________________, _______,
