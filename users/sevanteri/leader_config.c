@@ -122,7 +122,9 @@ static void* leader_g(uint16_t keycode) {
             if (MODS & MOD_MASK_SHIFT)
                 enable_caps_word();
             break;
-
+        case KC_A:
+            enable_xcase();
+            break;
         case KC_C:
             enable_caps_word();
             break;
