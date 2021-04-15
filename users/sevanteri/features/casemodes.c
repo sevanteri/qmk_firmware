@@ -232,6 +232,10 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
 
     if (caps_word_on || xcase_state == XCASE_ON) {
         keycode = strip_modtaps(keycode, record);
+        if (keycode > QK_MODS_MAX || IS_MOD(keycode)) {
+            // let special keys and normal modifiers go through
+            return true;
+        }
         if (record->event.pressed) {
             // handle xcase mode
             if (xcase_state == XCASE_ON) {
