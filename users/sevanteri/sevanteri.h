@@ -4,10 +4,11 @@
 
 enum customKeycodes {
     // custom tap-hold keys
+    // QK_LAYER_TAP + n results into LT(0, n) which is fine as long as layer-taps to base layer aren't used anywhere.
     LEADER_ENTER = QK_LAYER_TAP + 1,
     FUNC_HASH,
     LCTL_SLASH,
-    LGUI_RABK,
+    LGUI_QUOT,
 
     CODEBLK = SAFE_RANGE, // `code`
     WORDCAPS, // caps lock for one word
