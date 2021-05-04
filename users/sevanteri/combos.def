@@ -1,24 +1,19 @@
 // right hand top row {{{
-COMB(C_ARING,     FI_ARNG,        MY_H,  MY_U)
-COMB(C_QUOT,      FI_QUOT,        MY_I,  MY_O)
-COMB(C_ASTERISK,  LSFT(FI_QUOT),  MY_U,  MY_I,  MY_O)
-COMB(C_ACUT,      FI_ACUT,        MY_I,  MY_L)
+COMB(C_ARING,      FI_ARNG,        MY_H,  MY_U)
+COMB(C_ACUT,       FI_ACUT,        MY_I,  MY_L)
+/* COMB(C_ASTERISK,  LSFT(FI_QUOT),  MY_U,  MY_I,  MY_O) */
 
 //}}}
 // right hand home row {{{
 
-COMB(C_LESSTHAN,     FI_LABK,           MY_H,  MY_J)
-COMB(C_GREATERTHAN,  LGUI_RABK,  MY_K,  MY_L)
-/* COMB(C_GREATERTHAN,  FI_RABK,           MY_K,  MY_L) */
-
-/* COMB(C_SLASH,      LSFT(KC_7),         MY_J,     MY_K) */
-COMB(C_SLASH,      LCTL_SLASH,  MY_J,     MY_K)
-COMB(C_BACKSLASH,  RALT(FI_PLUS),      MY_THR2,  MY_J,  MY_K)
-
+COMB(C_LESSTHAN,     FI_LABK,  MY_H,  MY_J)
+COMB(C_GREATERTHAN,  FI_RABK,  MY_H,  MY_K)
+COMB(C_SLASH,      LCTL_SLASH,     MY_J,     MY_K)
+COMB(C_QUOT,       LGUI_QUOT,      MY_K,     MY_L)
+COMB(C_EQUALS,   FI_EQL,  MY_L,  MY_OE)
 
 COMB(C_QUESTION,   LSFT(FI_PLUS),  MY_THR2,  MY_OE)
-
-COMB(C_EQUALS,   LSFT(KC_0),  MY_L,  MY_OE)
+COMB(C_BACKSLASH,  RALT(FI_PLUS),  MY_THR2,  MY_J,  MY_K)
 
 COMB(C_SQUAREBRACERIGHT,  RALT(KC_9),  MY_M,  MY_DOT)
 COMB(C_PARENRIGHT,        LSFT(KC_9),  MY_J,  MY_K,  MY_L)
@@ -40,6 +35,9 @@ SUBS(C_DOTDOTSLASH,  "../",    MY_THR2,  MY_DOT)
 COMB(C_WE_TAB,  KC_TAB,  MY_W,  MY_E)
 
 SUBS(C_TILDE,   "~~",   MY_R, MY_T)
+
+COMB(C_MSBTN1, KC_BTN1, MY_F, MY_R)
+COMB(C_MSBTN2, KC_BTN2, MY_E, MY_D)
 //}}}
 // left hand home row {{{
 COMB(C_EXCLAMATIONP,  FI_EXLM,  MY_A,  MY_S)
@@ -65,8 +63,6 @@ COMB(C_PIPE,     RALT(FI_LABK),  MY_X,     MY_Z)
 COMB(C_AT,       RALT(KC_2),     MY_X,     MY_C)
 COMB(C_DOLLAR,   RALT(KC_4),     MY_C,     MY_V)
 
-COMB(C_MOUS3,   KC_BTN3,   KC_BTN1, KC_BTN2)
-
 //}}}
 
 // both hands {{{
@@ -85,8 +81,9 @@ COMB(C_PARENSBOTH,       MY_PARENSBOTH,       MY_S,  MY_D,  MY_F,  MY_J,  MY_K, 
 
 SUBS(C_GMAIL,  "pete.sevander@gmail.com",  MY_THR2,  MY_G)
 
-SUBS(C_OULD,  "ould",  MY_THL2,  MY_U)
-SUBS(C_IAPO,  "I'",  MY_THR2, MY_I, MY_O)
+SUBS(C_OULD,  "ould",  MY_U,  MY_O)
+SUBS(C_IAPO,  "I'",    MY_I,  MY_K,  MY_L)
+SUBS(C_THE,   "the",   MY_T,  MY_H)
 
 // python
 
@@ -102,6 +99,8 @@ SUBS(C_dunder,  "____" SLEFT SLEFT,           MY_THL2,  MY_MINS)
 
 // randoms {{{
 COMB(C_MUTE,   KC_MUTE,  MY_QUOT,  MY_AE)
+
+COMB(C_MOUS3,   KC_BTN3,   KC_BTN1, KC_BTN2)
 
 /* COMB(C_WORDCAPS, WORDCAPS,   KC_LSFT, CTRLESC, KC_TAB) */
 

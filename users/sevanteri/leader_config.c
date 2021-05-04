@@ -176,7 +176,7 @@ void* leader_start_func(uint16_t keycode, bool pressed) {
         // }}}
 
         case KC_X:
-            (mods & MOD_MASK_SHIFT) ? x: _X;
+            (mods & MOD_MASK_SHIFT) ? _X: x;
             TO_NORMAL;
 
     }

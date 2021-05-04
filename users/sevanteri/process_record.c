@@ -121,8 +121,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_mods(MOD_BIT(KC_LCTL)),
                 unregister_mods(MOD_BIT(KC_LCTL)));
             return false;
-        case LGUI_RABK:
-            TAP_OR_HOLD(FI_RABK,
+        case LGUI_QUOT:
+            TAP_OR_HOLD(FI_QUOT,
                 register_mods(MOD_BIT(KC_LGUI)),
                 unregister_mods(MOD_BIT(KC_LGUI)));
             return false;
