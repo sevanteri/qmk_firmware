@@ -64,7 +64,7 @@ char *leader_display_str(void) {
 
 // The entry point for leader sequenc functions
 __attribute__ ((weak))
-void *leader_start_func(uint16_t keycode) {
+void *leader_start_func(uint16_t keycode, bool pressed) {
     return NULL;
 }
 
@@ -110,37 +110,37 @@ bool process_leader(uint16_t keycode, const keyrecord_t *record) {
     if (!leading || IS_MOD(keycode)) return true;
     const bool pressed = record->event.pressed;
 
-    if (
-            ((keycode > QK_MODS_MAX) && !pressed) // special keys on release
-            || pressed // normal keys on press
-        ) {
+    if (keycode > QK_MODS_MAX && pressed) {
+        // special keys can go through on press
+        return true;
+    }
+
+    /* if (!pressed) { */
         // Get the base keycode of a mod or layer tap key
         if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
             (keycode >= QK_LAYER_TAP && keycode < QK_LAYER_TAP_MAX)) {
-                // Earlier return if this has not been considered tapped yet
+                // Earlier return if this has not been considered tapped
                 if (record->tap.count == 0)
                     return true;
                 keycode = keycode & 0xFF;
-        }
-        if (keycode > QK_MODS_MAX) {
+        } else if (keycode > QK_MODS_MAX) {
             // early exit for other special key presses.
             return true;
         }
-        // early exit if the esc key was hit
-        if (keycode == LEADER_ESC_KEY) {
-            stop_leading();
-            return false;
-        }
-
-#ifdef LEADER_DISPLAY_STR
-        update_leader_display(keycode);
-#endif
-        // update the leader function
-        leader_func = (*leader_func)(keycode);
-        if (leader_func == NULL) {
-            stop_leading();
-        }
+    /* } */
+    // early exit if the esc key was hit
+    if (keycode == LEADER_ESC_KEY) {
+        stop_leading();
         return false;
     }
-    return true;
+
+#ifdef LEADER_DISPLAY_STR
+    update_leader_display(keycode);
+#endif
+    // update the leader function
+    leader_func = (*leader_func)(keycode, pressed);
+    if (leader_func == NULL) {
+        stop_leading();
+    }
+    return false;
 }
