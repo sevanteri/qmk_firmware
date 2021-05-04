@@ -18,7 +18,7 @@
 
 #include QMK_KEYBOARD_H
 
-typedef void *(*leader_func_t)(uint16_t);
+typedef void *(*leader_func_t)(uint16_t, bool);
 
 // Check to see if we are leading
 bool is_leading(void);
