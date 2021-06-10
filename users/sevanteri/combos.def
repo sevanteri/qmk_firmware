@@ -138,6 +138,7 @@ COMB(C_WBAK,      KC_WBAK,        MY_U, MY_J)
 COMB(C_WFWD,      KC_WFWD,        MY_O, MY_L)
 
 COMB(C_PLUS,      FI_PLUS,        MY_P,  MY_OE)
+COMB(C_PLUS2,     FI_PLUS,        MY_MINS,  MY_OE)
 
 // left hand
 COMB(C_DIAERESIS,  FI_DIAE,  MY_G,  MY_T)

@@ -248,7 +248,7 @@ void pointing_device_task() {
         pointing_device_send();
     }
 
-#define TAB_LIMIT 10
+#define TAB_LIMIT 8
     if (tab_offset > TAB_LIMIT) {
         tap_code16(CTRLTAB);
         tab_offset -= TAB_LIMIT;
