@@ -5,7 +5,11 @@ Instead, see below for the Combo branches.
 
 If you're looking for my Combo improvements, here they are, in the [early_combo](https://github.com/sevanteri/qmk_firmware/tree/early_combo) branch. Pending Pull Request [here](https://github.com/qmk/qmk_firmware/pull/8591).
 
-The branch gets frequent force-pushes as does the `develop` branch. If that's a problem for you, the same changes can be found in the [combos_on_master](https://github.com/sevanteri/qmk_firmware/tree/combos_on_master) branch in which the changes are rebased on top the master branch.
+The branch gets frequent force-pushes as does the `develop` branch. If that's a problem for you, the same changes can be found in the [combos_on_master](https://github.com/sevanteri/qmk_firmware/tree/combos_on_master) branch in which the changes are rebased on top the master branch. I try to keep this branch updated but I have and most likely will in the future, forget.
+
+I also created a branch [combo_commit](https://github.com/sevanteri/qmk_firmware/tree/combo_commit) which contains the changes in one commit, so it should be "easily" cherry-pickable.
+
+But the `early_combo` branch is the only one definitely up to date.
 
 
 Personally, I've found that rebasing on top of either of these branches is the easiest way. If you're a master of git, do what ever you want.
