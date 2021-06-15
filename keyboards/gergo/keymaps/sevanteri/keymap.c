@@ -13,6 +13,7 @@
 #include "keymap_finnish.h"
 #include "pointing_device.h"
 #ifdef PIMORONI_TRACKBALL_ENABLE
+#include "leader.h"
 #include "pimoroni_trackball.h"
 # if defined(RAW_ENABLE)
 # include "raw_hid.h"
@@ -24,17 +25,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer {{{ */
 [_BASE] = LAYOUT_gergo_wrapper(
     KC_TAB,  _________________QWERTY_L1_________________, /**/     /**/     /**/ /**/     /**/     _________________QWERTY_R1_________________, FI_QUOT,
-    CTRLESC,  _________________QWERTY_L2_________________, FI_DIAE, /**/     /**/ /**/     FI_ARNG, _________________QWERTY_R2_________________, MY_AE,
+    CTRLESC, _________________QWERTY_L2_________________, FI_DIAE, /**/     /**/ /**/     FI_ARNG, _________________QWERTY_R2_________________, MY_AE,
     KC_LSFT, _________________QWERTY_L3_________________, _______, _______,  /**/ _______, _______, _________________QWERTY_R3_________________, KC_RSFT,
     /******/ /******/ /******/ /******/ MY_THL4, MY_THL3, MY_THL2, MY_THL1,  /**/ MY_THR1, MY_THR2, MY_THR3, MY_THR4
     ),
 // }}}
 /* Keymap 1: numbers and Symbols layer {{{ */
-[_SYMB] = LAYOUT_gergo_wrapper(
-    FI_SECT,       _________________SYMB_L1___________________, /******/   /******/ /****/ /******/ /******/ _________________SYMB_R1___________________, FI_PLUS,
-    LSFT(FI_SECT), _________________SYMB_L2___________________, RALT(FI_DIAE), /**/ /****/ /******/ _______, _________________SYMB_R2___________________, LSFT(FI_PLUS),
-    RALT(FI_LABK), _________________SYMB_L3___________________, _______, _______,   /****/ _______, _______, _________________SYMB_R3___________________, RALT(FI_PLUS),
-    /******/       /******/ /******/ /******/            KC_NO, ___SYMB_THUMBLN_,   /****/  ___SYMB_THUMBRN_, KC_NO
+[_NUM] = LAYOUT_gergo_wrapper(
+    FI_SECT,       __________________NUM_L1___________________  , /******/   /******/ /****/ /******/ /******/ __________________NUM_R1___________________, FI_PLUS,
+    LSFT(FI_SECT), __________________NUM_L2___________________, RALT(FI_DIAE), /**/ /****/ /******/ _______, __________________NUM_R2___________________, LSFT(FI_PLUS),
+    RALT(FI_LABK), __________________NUM_L3___________________, _______, _______,   /****/ _______, _______, __________________NUM_R3___________________, RALT(FI_PLUS),
+    /******/       /******/ /******/ /******/            KC_NO, ____NUM_THUMBLN_,   /****/  ____NUM_THUMBRN_, KC_NO
     ),
 // }}}
 /* Keymap 2: Function layer {{{ */
@@ -103,6 +104,8 @@ static int16_t mouse_auto_layer_timer = 0;
 #define MOUSE_TIMEOUT 600
 #define TRACKBALL_TIMEOUT 5
 
+#define SIGN(x) ((x > 0) - (x < 0))
+
 // user config EEPROM stuff {{{
 typedef union {
   uint32_t raw;
@@ -112,6 +115,8 @@ typedef union {
 } user_config_t;
 
 user_config_t user_config;
+
+static uint8_t tb_brightness = 32;
 
 void keyboard_post_init_user(void) {
   user_config.raw = eeconfig_read_user();
@@ -164,7 +169,7 @@ void pointing_device_task() {
         trackball_state_t state = trackball_get_state();
 
         uint8_t mods;
-        if (state.raw_x || state.raw_y) {
+        if (state.x || state.y) {
             trigger_tapping();
             mods = get_mods();
         }
@@ -180,36 +185,19 @@ void pointing_device_task() {
         } else {
 
             if (layer_state_is(_STUF)) {
-                tb_brightness += state.raw_y * 4;
+                tb_brightness += state.y * 4;
                 trackball_set_brightness(tb_brightness | 1);
 
-            } else if (layer_state_is(_FUNC)) {
+            } else if (layer_state_is(_FUNC) || is_leading()) {
                 h_offset += state.x;
                 v_offset -= state.y;
 
-#if defined(RAW_ENABLE)
-            } else if (layer_state_is(SYMB)) {
-                // set volume
-                uint8_t msg[RAW_EPSIZE];
-                sprintf((char *)msg, "VOL:%3d ", state.y);
-                raw_hid_send(msg, RAW_EPSIZE);
-#endif
+            } else if ((state.x || state.y) && !state.button_down) {
 
-            } else if (state.raw_x || state.raw_y) {
-
-                if (!mouse_auto_layer_timer && !layer_state_is(_FUNC)) {
-                    layer_on(_MOUS);
-                }
-                mouse_auto_layer_timer = timer_read() | 1;
-
-                float power = 3;
-                if (mods & MOD_MASK_CTRL) power = 1.8;
-                /* else if (mods & MOD_MASK_ALT) power = 3.2; */
-
-                double newlen = pow(state.vector_length, power);
-
-                x_offset += (newlen * cos(state.angle_rad));
-                y_offset += (newlen * sin(state.angle_rad));
+                uint8_t scale = 3;
+                if (mods & MOD_MASK_CTRL) scale = 2;
+                x_offset += state.x * state.x * SIGN(state.x) * scale;
+                y_offset += state.y * state.y * SIGN(state.y) * scale;
 
             }
         }

@@ -261,9 +261,13 @@ void* leader_start_func(uint16_t keycode, bool pressed) {
 
 void leader_end(void) {
     reset();
+#ifdef RGBLIGHT_ENABLE
     trackball_set_hsv(rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val());
+#endif
 }
 
 void leader_start(void) {
+#ifdef RGBLIGHT_ENABLE
     trackball_set_rgbw(0, rgblight_get_val(), 0, 0);
+#endif
 }
